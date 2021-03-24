@@ -32,8 +32,8 @@ const LoginForm = () => {
 
     return(
     
-        <Card>
-            <Grid container direction='column'>
+        <Card style={{width:'400px'}}>
+            <Grid container direction='column' alignItems="center">
             <Grid item>
                 <TextField variant='outlined' 
                 placeholder='Adres e-mail'

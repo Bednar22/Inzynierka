@@ -6,6 +6,7 @@ import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 //components
 import Navbar from './components/navbar.component'
 import LoginForm from './components/loginForm';
+import Register from './components/register'
 
 const theme = createMuiTheme({
    palette: {
@@ -27,6 +28,7 @@ function App() {
     <Navbar></Navbar>
     <BrowserRouter>
         <Switch>
+          <Route path="/users/register" component={Register} />
           <Route path="/users" component={LoginForm} />
         </Switch>
     </BrowserRouter>

@@ -1,16 +1,23 @@
 const express = require('express');
 const User = require('../models/user_model');
 const router = express.Router();
-const {registerValidation} = require('./user.validation');
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const {registerValidation, loginValidation} = require('./user.validation');
 
-router.get('/login', async (req, res) => {
-    try{
-        const users = await User.find();
-        res.json(users);
-    } catch(err){
-        res.status(200).send(err);
-    }
+router.post('/login', async (req, res) => {
+    //validation process
+    const {error} = loginValidation(req.body);
+    if(error){return res.status(400).send(error.details[0].message)}
+    //checking email and password
+    const user = await User.findOne({email: req.body.email})
+    if(!user) return res.status(400).send('Niepoprawny email lub hasło');
 
+    const passCheck = await bcrypt.compare(req.body.password, user.password )
+    if(!passCheck) return res.status(400).send('Niepoprawny email lub hasło'); 
+
+    const token = jwt.sign({_id: user._id}, process.env.TOKEN);
+    res.header('auth-token', token).send(token);
 });
 
 router.post('/register',  async (req, res) => {
@@ -22,9 +29,14 @@ router.post('/register',  async (req, res) => {
     const emailUsed = await User.findOne({email: req.body.email})
     if(emailUsed){return res.status(400).send('Email already used');}
 
+    //password hashing
+    const salt = await bcrypt.genSalt(10); //higher value, more complex hash
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    //creating user
     const user = new User({
         email: req.body.email,
-        password: req.body.password,
+        password: hashedPassword,
         name: req.body.name,
         surname: req.body.surname,
         city: req.body.city,
