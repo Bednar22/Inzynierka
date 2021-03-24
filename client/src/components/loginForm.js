@@ -1,55 +1,63 @@
 import React, {useState} from 'react'
 import '../App.css'
 import axios from 'axios'
+//material ui imports
+import {TextField, Container, Button, Grid, Typography, Card} from'@material-ui/core'
+
+
 const LoginForm = () => {
 
-    const[username, setUsername] = useState('');
     const[password, setPassword] = useState('');
     const[mail, setMail] = useState('');
 
     const restartStates = () =>{
-        setUsername('');
         setMail('');
         setPassword('');
     }
 
-    const submitUser = (e) =>{
+    const loginUser = (e) =>{
         
         const user = {
-            username: username,
-            password: password,
-            // mail: mail
+            mail: mail,
+            password: password
+            
         }
         console.log(user);
 
-        axios.post('/users', user).then(res=>console.log(res.data));
+        // axios.post('/users', user).then(res=>console.log(res.data));
         
-        e.preventDefault();
-        restartStates();
+        // e.preventDefault();
+        // restartStates();
     }
 
     return(
-        <div>
-            <p> Form to log in</p>
-            <div className="login-form">
-                <form >
-                    <div>
-                    <label htmlFor='username'>Username:</label>
-                    <input type="text" name="username" value={username} onChange={e => setUsername(e.target.value)}></input> 
-                    </div>
-                    <div>
-                    <label htmlFor="password">Password:</label>
-                    <input type="password" name="password" value={password} onChange={e => setPassword(e.target.value)} ></input>
-                    </div>
-                    <div>
-                    <label htmlFor="mail">Mail:</label> 
-                    <input type="mail" name="mail" value={mail} onChange={e => setMail(e.target.value)}></input>
-                    </div>
-                    <button type="submit" onClick={submitUser}> Dodaj</button>
-                </form>
-            </div>
-           
-        </div>
+    
+        <Card>
+            <Grid container direction='column'>
+            <Grid item>
+                <TextField variant='outlined' 
+                placeholder='Adres e-mail'
+                type='email'
+                onChange={(e)=>setMail(e.target.value)}>
+                </TextField>
+            </Grid>
+            <Grid item>
+                <TextField variant='outlined'
+                 placeholder='Hasło' 
+                 type='password' 
+                 onChange={(e)=>setPassword(e.target.value)}>
+                </TextField>
+            </Grid>
+            <Grid item>
+                <Button color='secondary' variant='contained' onClick={()=>loginUser()} >Zaloguj</Button>
+            </Grid>
+            <Grid item>
+                <Typography>
+                    Nie masz konta? (Zarejestruj się tutaj) -link
+                </Typography>
+            </Grid>
+            </Grid>
+        </Card>
 
     )
 
