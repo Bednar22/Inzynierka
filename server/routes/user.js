@@ -5,6 +5,12 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {registerValidation, loginValidation} = require('./user.validation');
 
+router.get('/', async(req,res)=>{
+    User.find()
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
 router.post('/login', async (req, res) => {
     //validation process
     const {error} = loginValidation(req.body);
@@ -22,9 +28,10 @@ router.post('/login', async (req, res) => {
 
 router.post('/register',  async (req, res) => {
     
-    //validation process
+    // //validation process
     const {error} = registerValidation(req.body);
-    if(error){return res.status(400).send(error.details[0].message)}
+    if(error){console.log(error)
+        return res.status(400).send(error.details[0].message)}
     
     const emailUsed = await User.findOne({email: req.body.email})
     if(emailUsed){return res.status(400).send('Email already used');}
@@ -45,7 +52,7 @@ router.post('/register',  async (req, res) => {
         nr_mieszkania:req.body.nr_mieszkania,
         kod_pocztowy: req.body.kod_pocztowy
     });
-    
+    console.log(user);
     try {
     const savedUser = await user.save();
     res.json(savedUser);

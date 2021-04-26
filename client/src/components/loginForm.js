@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
 import '../App.css'
 import axios from 'axios'
-//material ui imports
-import {TextField, Container, Button, Grid, Typography, Card} from'@material-ui/core'
 
+//material ui imports
+import {TextField, Button, Grid, Typography, Card} from'@material-ui/core'
 
 const LoginForm = () => {
 
     const[password, setPassword] = useState('');
-    const[mail, setMail] = useState('');
+    const[email, setMail] = useState('');
 
     const restartStates = () =>{
         setMail('');
@@ -18,38 +18,40 @@ const LoginForm = () => {
     const loginUser = (e) =>{
         
         const user = {
-            mail: mail,
+            email: email,
             password: password
-            
         }
         console.log(user);
 
-        // axios.post('/users', user).then(res=>console.log(res.data));
+        axios.post('/users/login', user).then(res=>console.log(res.data));
         
-        // e.preventDefault();
-        // restartStates();
+        e.preventDefault();
+        restartStates();
     }
 
     return(
     
-        <Card style={{width:'400px'}}>
-            <Grid container direction='column' alignItems="center">
+            <Card>
+            <Grid container direction='column' alignItems="center" spacing={4}  >
             <Grid item>
-                <TextField variant='outlined' 
+                <TextField 
+                variant='outlined' 
                 placeholder='Adres e-mail'
                 type='email'
                 onChange={(e)=>setMail(e.target.value)}>
                 </TextField>
             </Grid>
             <Grid item>
-                <TextField variant='outlined'
+                <TextField 
+                
+                variant='outlined'
                  placeholder='Hasło' 
                  type='password' 
                  onChange={(e)=>setPassword(e.target.value)}>
                 </TextField>
             </Grid>
             <Grid item>
-                <Button color='secondary' variant='contained' onClick={()=>loginUser()} >Zaloguj</Button>
+                <Button color='secondary' variant='contained' onClick={(e)=>loginUser(e)} >Zaloguj</Button>
             </Grid>
             <Grid item>
                 <Typography>
@@ -57,7 +59,7 @@ const LoginForm = () => {
                 </Typography>
             </Grid>
             </Grid>
-        </Card>
+            </Card>
 
     )
 

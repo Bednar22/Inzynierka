@@ -5,9 +5,12 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 //components
 import Navbar from './components/navbar.component'
+import Homepage from './components/homepage'
 import LoginForm from './components/loginForm';
 import Register from './components/register'
-
+import Footer from './components/footer'
+import ShoppingCart from './components/shoppingCart'
+import Shop from './components/shop'
 const theme = createMuiTheme({
    palette: {
      primary: {
@@ -25,13 +28,17 @@ function App() {
   return (
     <>
     <ThemeProvider theme={theme}>
-    <Navbar></Navbar>
     <BrowserRouter>
-        <Switch>
-          <Route path="/users/register" component={Register} />
-          <Route path="/users" component={LoginForm} />
-        </Switch>
-    </BrowserRouter>
+      <Navbar></Navbar>
+          <Switch>
+            <Route path="/users/register" component={Register} />
+            <Route path="/users" component={LoginForm} />
+            <Route path='/cart' component={ShoppingCart} />
+            <Route path='/shop' component={Shop} />
+            <Route path='/' component={Homepage} />
+          </Switch>
+          <Footer></Footer>
+      </BrowserRouter>
     </ThemeProvider>
     </>
   );

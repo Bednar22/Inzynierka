@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {TextField, Grid} from '@material-ui/core'
+import axios from 'axios'
+import {TextField, Grid, Button} from '@material-ui/core'
 
 const Register = () => {
     //STATES --> same as user schema
@@ -11,12 +12,73 @@ const Register = () => {
     const [street,setStreet] = useState('');
     const [nr_domu,setNrDomu] = useState();
     const [nr_mieszkania,setNrMieszkania] = useState();
-    const [kodpocztowy, setKodpocztowy] = useState();
+    const [kod_pocztowy, setKodpocztowy] = useState();
 
     const[pass2, setPass2] = useState('')
 
+    const checkPasswords = () => {
+        if(password===pass2) return true;
+
+        return false;
+    }
+
+    const restartStates = () => {
+        setCity('');
+        setEmail('');
+        setKodpocztowy();
+        setName('');
+        setSurname('');
+        setPassword('');
+        setPass2('');
+        setNrDomu();
+        setNrMieszkania('');
+    }
+
+    const addUser = (e) => {
+
+    if(!checkPasswords()) return;
+
+        const user = {
+            email: email,
+            password: password,
+            name: name,
+            surname: surname,
+            city: city,
+            street:street,
+            nr_domu: nr_domu,
+            nr_mieszkania: nr_mieszkania,
+            kod_pocztowy: kod_pocztowy
+        };
+
+        axios.post('/users/register', user)
+        .then(res=>{
+            console.log(res);
+             console.log(res.data);
+         })
+        e.preventDefault();
+        restartStates();
+
+    }
+    
     return(
-        <Grid container direction='column' alignItems='center'>
+        
+        <Grid container direction='column' alignItems='center' spacing={2}>
+            <Grid item>
+            <TextField 
+                variant='outlined' 
+                placeholder='Imię'
+                type='text'
+                onChange={(e)=>setName(e.target.value)}>
+            </TextField>
+            </Grid>
+            <Grid item>
+            <TextField 
+                variant='outlined' 
+                placeholder='Nazwisko'
+                type='text'
+                onChange={(e)=>setSurname(e.target.value)}>
+            </TextField>
+            </Grid>
             <Grid item>
             <TextField 
                 variant='outlined' 
@@ -25,7 +87,7 @@ const Register = () => {
                 onChange={(e)=>setEmail(e.target.value)}>
             </TextField>
             </Grid>
-            <Grid item>
+           <Grid item>
             <TextField variant='outlined' 
                 placeholder='Hasło'
                 type='password'
@@ -74,7 +136,13 @@ const Register = () => {
                 onChange={(e)=>setKodpocztowy(e.target.value)}>
             </TextField>
             </Grid>
+            <Grid item>
+                <Button variant='outlined' type='submit' onClick={(e)=>addUser(e)}  >Dodaj</Button>
+            </Grid>
         </Grid>
+        
+
+    
     )
 }
 

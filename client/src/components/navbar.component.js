@@ -1,43 +1,46 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { makeStyles} from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-    myButton: {
-      background: 'green',
-      border: 0,
-      borderRadius: 3,
-      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-      color: 'white',
-      height: 48,
-      padding: '0 30px',
-      '&:hover': {
-        backgroundColor: 'red',
-        borderColor: '#0062cc',
-        boxShadow: 'none',
-      },
-    },
-    
-  });
-
+import {Button, ButtonGroup, Grid} from '@material-ui/core/';
+import PersonIcon from '@material-ui/icons/Person';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import Badge from '@material-ui/core/Badge'
 
 export default function Navbar() {
 
-    const classes = useStyles();
-
   return (
     <div >
+     
       <AppBar position="static"  color="secondary">
-        <Toolbar>
+        <Toolbar> 
           <Typography variant="h6" >
-            News
+          <Link to="/">
+            <Button>LOGO</Button>
+          </Link>
           </Typography>
-          <Button  color="primary" >Login</Button>
+          <Grid container direction='row' justify='center' allignItems='center' >
+          <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
+          <Link to='shop'><Button>Części</Button></Link>
+          <Link to='shop'><Button>Odzież</Button></Link>
+         <Link to='shop'><Button>Akcesoria</Button></Link>
+         <Link to='shop'><Button>Promocje</Button></Link>
+        </ButtonGroup>
+          </Grid>
+          
+         <Button>
+         <Link to='/cart'>
+           <Badge  badgeContent={4} color='error'><ShoppingBasketIcon color='primary' /> </Badge>
+          </Link>
+          </Button>
+          <Link to='/users/register'>
+         <Button><PersonIcon color='primary' /></Button>
+         </Link>
         </Toolbar>
       </AppBar>
+    
     </div>
+    
   );
 }
