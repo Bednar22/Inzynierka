@@ -2,14 +2,14 @@ import React from 'react'
 import { Container, Grid, List,ListItem, ListItemText, Divider, ListItemIcon} from '@material-ui/core/';
 import PhoneIcon from '@material-ui/icons/Phone';
 import EmailIcon from '@material-ui/icons/Email';
-import "./../App.css"
+import "./../../App.css"
 
 const Footer = () => {
     
 
     return (
         <>
-         <Container className='footer'>
+         <Container className='footer' minWidth='xl'>
             <Grid container direction='row' spacing={3}>
                 <Grid item xs>
                     <List>

@@ -4,13 +4,14 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 //material-ui
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 //components
-import Navbar from './components/navbar.component'
-import Homepage from './components/homepage'
-import LoginForm from './components/loginForm';
-import Register from './components/register'
-import Footer from './components/footer'
+import Navbar from './components/layout/navbar.component'
+import Homepage from './components/homepage/homepage'
+import LoginForm from './components/signing/loginForm';
+import Register from './components/signing/register'
+import Footer from './components/layout/footer'
 import ShoppingCart from './components/shoppingCart'
-import Shop from './components/shop'
+import Shop from './components/shopItems/shop'
+import { Container } from '@material-ui/core';
 const theme = createMuiTheme({
    palette: {
      primary: {
@@ -30,6 +31,7 @@ function App() {
     <ThemeProvider theme={theme}>
     <BrowserRouter>
       <Navbar></Navbar>
+      <Container maxWidth="lg">
           <Switch>
             <Route path="/users/register" component={Register} />
             <Route path="/users" component={LoginForm} />
@@ -37,7 +39,8 @@ function App() {
             <Route path='/shop' component={Shop} />
             <Route path='/' component={Homepage} />
           </Switch>
-          <Footer></Footer>
+      </Container>
+      <Footer></Footer>
       </BrowserRouter>
     </ThemeProvider>
     </>

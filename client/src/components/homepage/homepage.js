@@ -27,13 +27,7 @@ const Homepage = () => {
 
     return(
         <div style={{minHeight:500}}>
-            <form onSubmit={(event)=>handleSubmit(event)}>
-          <label>
-            Person Name:
-            <input type="text" name="name" onChange={(event)=>handleChange(event)} />
-          </label>
-          <button type="submit">Add</button>
-        </form>
+           HOMEPAGE
         </div>
     )
 

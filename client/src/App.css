@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.bord {
+  border: 2px solid green;
+}
+
 .footer {
   height: 200px;
   width: max-content;
