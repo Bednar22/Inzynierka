@@ -6,6 +6,10 @@
   border: 2px solid green;
 }
 
+.navbar {
+  margin-bottom: 50px;
+}
+
 .footer {
   height: 200px;
   width: max-content;

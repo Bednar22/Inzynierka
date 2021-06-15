@@ -1,4 +1,4 @@
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 const cors = require("cors");
 const path = require("path");
 const express = require('express');
@@ -7,9 +7,14 @@ require('dotenv/config');
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+//app.use(express.static('public')); //--> moze tak lepiej zamiast koncowej linijki
 
+// LIMITS FOR BIGGER FILES (IMAGES)
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
+app.use(cors());
+app.use(express.json())
 
 mongoose.connect(process.env.DB_CONNECTION,
 { useUnifiedTopology: true, useNewUrlParser: true},  
@@ -19,6 +24,9 @@ mongoose.connect(process.env.DB_CONNECTION,
 //ROUTES
 const userRoute = require('./routes/user');
 app.use('/users', userRoute);
+
+const productUploadRoute = require('./routes/productupload')
+app.use('/productupload', productUploadRoute);
 
 app.listen(3001, () => {
     console.log(`Server is running on port: 3001`);

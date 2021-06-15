@@ -8,12 +8,14 @@ import PersonIcon from '@material-ui/icons/Person';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Badge from '@material-ui/core/Badge'
 
+import '../../App.css';
+
 export default function Navbar() {
 
   return (
     <div >
      
-      <AppBar position="static"  color="secondary">
+      <AppBar position="static"  color="secondary" className='navbar'>
         <Toolbar> 
           <Typography variant="h6" >
           <Link to="/">
