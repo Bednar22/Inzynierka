@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import Grid from '@material-ui/core/Grid'
 import { TextField } from '@material-ui/core'
-import ImageUpload from './imageUpload'
 import { Button, TextareaAutosize} from '@material-ui/core'
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -43,32 +42,9 @@ const AddProduct = () =>{
 
     const uploadImage = async (base64EncodedImage) => {
         
-    //   await axios({
-    //     method: 'post',
-    //     headers:{
-    //         'accept': 'application/json'
-    //     },
-    //     url: '/itemupload/uploadimage',
-    //     data: base64EncodedImage
-        
-    //     })
-        
-    //     await axios.post('/upload', base64EncodedImage )
-      
-      
-    //   try {
-    //        await fetch('/productupload/uploadimage',{
-    //             method: 'POST',
-    //             body: JSON.stringify({
-    //                 data: base64EncodedImage
-    //             }),
-    //             headers: {'Content-type': 'application/json'}
-    //         })
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-
-        fetch('/productupload/uploadimage',{
+    
+        try{
+        await fetch('/productupload/uploadimage',{
             method: 'POST',
             body: JSON.stringify({
                 data: base64EncodedImage
@@ -77,9 +53,13 @@ const AddProduct = () =>{
         }).then(res=>{
             return res.json();
         }).then(data=>{
-            console.log(data.url)
+            console.log(data)
+            setPhotoId(()=>data.public_id)
         })
-    
+        }catch(error){
+            console.error(error)
+        }
+
     }
     const handleProductAdd = async() => {
 
@@ -101,30 +81,39 @@ const AddProduct = () =>{
 
     }
 
-    const handleSelect = (e) => {
+    const handleSelectCategory = (e) => {
         setCategory(e.target.value);
+      };
+
+      const handleSelectSubCategory = (e) => {
+        setSubCategory(e.target.value);
       };
 
 
     return(
-        <Grid container direction="column" spacing={2} style={{marginLeft:'50px'}, {border:'2px solid green'}}>
-        <Grid item xs={6} sm={6}>
+        <div>
+        <Grid container direction="column" spacing={4} alignItems="left"
+         style={{marginLeft:'50px'}, {border:'2px solid green'}} > {/* GŁOWNY KONTENER */}
+        <Grid item xs={4} sm={4}>
                 <TextField 
+                fullWidth
                     variant='outlined' 
                     placeholder='Nazwa produktu'
                     type='text'
                     onChange={(e)=>setName(e.target.value)}>
                 </TextField>
             </Grid>          
-            <Grid container spacing={3}>
-            <Grid item>
-            <InputLabel style={{minWidth:'100px'}} id="demo-simple-select-label">Kategoria</InputLabel>
+
+                <Grid container item  spacing={6}> {/* KONTENER NA KATEGORIE */}
+                <Grid item xs={2}>
+            <InputLabel id="demo-simple-select-label">Kategoria</InputLabel>
             <Select
+            fullWidth
              style={{minWidth:'100px'}}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={category}
-                onChange={handleSelect}
+                onChange={handleSelectCategory}
                 >
                 <MenuItem value={10}>Akcesoria</MenuItem>
                 <MenuItem value={20}>Odzież</MenuItem>
@@ -132,18 +121,50 @@ const AddProduct = () =>{
             </Select>
 
             </Grid>
-            <Grid item >
+
+            <Grid item xs={2} sm={2}>
+            <InputLabel style={{minWidth:'100px'}} id="demo-simple-select-label">Podkategoria</InputLabel>
+            <Select
+             style={{minWidth:'100px'}}
+             fullWidth
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={category}
+                onChange={handleSelectSubCategory}
+                >
+                <MenuItem value={10}>Jeden</MenuItem>
+                <MenuItem value={20}>Dwa</MenuItem>
+                <MenuItem value={30}>Trzy</MenuItem>
+            </Select>
+
+            </Grid>
+                </Grid>
+
+            <Grid container item spacing={3} > {/* KONTENER NA CENE */}
+            <Grid item xs={2} sm={2} >
                 <TextField 
+                    fullWidth
                     variant='outlined' 
                     placeholder='Cena'
                     type='number'
                     onChange={(e)=>setPrice(e.target.value)}>
                 </TextField>
             </Grid>
+
+            <Grid item xs={2} sm={2} >
+                <TextField 
+                    fullWidth
+                    variant='outlined' 
+                    placeholder='Cena promocyjna'
+                    type='number'
+                    onChange={(e)=>setDiscountPrice(e.target.value)}>
+                </TextField>
             </Grid>
-            <Grid item xs={12} sm={12}>
+
+            </Grid> {/* KONIEC CENY */}
+            <Grid item xs={8} sm={8}>
                 <TextField
-                    //style={{minWidth:'400px'}} 
+                   fullWidth
                     variant='outlined' 
                     placeholder='Opis'
                     type='text'
@@ -151,9 +172,12 @@ const AddProduct = () =>{
                     onChange={(e)=>setDescription(e.target.value)}>
                 </TextField>
             </Grid>
-            <Grid>
-            <TextField value="Wybierz zdjęcie produktu" disabled variant='standard'></TextField>
+
+            <Grid item xs={4}>
+            <TextField value="Wybierz zdjęcie produktu" disabled variant='standard' fullWidth></TextField>
             </Grid>
+            
+            
             <input name="image" onChange={(e) => handleFileInputChange(e)} value={fileInput}
                 accept="image/*"
                 id="contained-button-file"
@@ -161,26 +185,32 @@ const AddProduct = () =>{
                 type="file"
                 style={{display:'none'}}
             />
-            
+            <Grid item container spacing={4}> {/* KONTENER ZE ZDJECIEM */}
+           
+            <Grid item container direction="column" spacing={3} xs={2} sm={2}> {/* KONTENER NA 2 BUTTONY */}
             <Grid item>
                 <label htmlFor="contained-button-file">
-                    <Button variant="contained" color="primary" component="span">Wybierz plik</Button>
+                    <Button variant="contained" color="primary" fullWidth component="span">Wybierz plik</Button>
                 </label>
             </Grid>
-            <Grid item xs={6} sm={6}>
-            <Button variant="contained" color="primary"  onClick={handleSubmit}>Dodaj zdjęcie</Button>
-            </Grid>
-            <Grid item xs={6} sm={6} xl={6}>
+                <Grid item>
+                    <Button variant="contained" color="primary" fullWidth onClick={handleSubmit}>Dodaj zdjęcie</Button>
+                </Grid>
+            </Grid> {/* KONIEC 2 BUTTON */}
+
+            <Grid item container alignItems="center" xs={2} sm={2} >
             {previewSource ? (
-                <img src={previewSource} alt="Wybrane zdjecie" style={{height:'100px'}} />
+                <img src={previewSource} alt="Wybrane zdjecie" style={{maxHeight:'100px'}} />
             ) : (<h2>Brak wybranego</h2>)}
             </Grid>
           
+                
+            </Grid>{/* KONIEC KONTENERA ZE ZDJECIEM */}
             <Grid item xs={6} sm={6}>
-            <Button variant="contained" color="primary"  onClick={handleProductAdd}>Dodaj produkt</Button>
-            </Grid>
-
+                    <Button variant="contained" color="primary"  onClick={handleProductAdd}>Dodaj produkt</Button>
+            </Grid> 
         </Grid>
+        </div>
     )
 }
 
