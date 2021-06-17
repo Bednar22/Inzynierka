@@ -6,12 +6,14 @@ const jwt = require('jsonwebtoken')
 const {registerValidation, loginValidation} = require('./user.validation');
 
 router.get('/', async(req,res)=>{
-    User.find()
+    await User.find()
     .then(users => res.json(users))
     .catch(err => res.status(400).json("Error: " + err));
 })
 
+//Logs users to website, returns jwt to user
 router.post('/login', async (req, res) => {
+    
     //validation process
     const {error} = loginValidation(req.body);
     if(error){return res.status(400).send(error.details[0].message)}
@@ -26,6 +28,7 @@ router.post('/login', async (req, res) => {
     res.header('auth-token', token).send(token);
 });
 
+// sings in user to website, process with validation and password hashing
 router.post('/register',  async (req, res) => {
     
     // //validation process

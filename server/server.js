@@ -21,12 +21,19 @@ mongoose.connect(process.env.DB_CONNECTION,
 () => console.log('!!! connected to DB !!!')
  );
 
-//ROUTES
+//ROUTES (API)
+
+// User
 const userRoute = require('./routes/user');
 app.use('/users', userRoute);
-
-const productUploadRoute = require('./routes/productupload')
-app.use('/productupload', productUploadRoute);
+//productUpload
+const productRoute = require('./routes/product')
+app.use('/product', productRoute);
+//categories
+const categoriesRoute = require('./routes/categories')
+app.use('/categories', categoriesRoute);
+//storage
+/* HERE STORAGE API --> MAGAZYNOWE SPRAWY */
 
 app.listen(3001, () => {
     console.log(`Server is running on port: 3001`);

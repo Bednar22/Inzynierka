@@ -44,7 +44,7 @@ const AddProduct = () =>{
         
     
         try{
-        await fetch('/productupload/uploadimage',{
+        await fetch('/product/uploadimage',{
             method: 'POST',
             body: JSON.stringify({
                 data: base64EncodedImage
@@ -73,7 +73,7 @@ const AddProduct = () =>{
             photoId:photoId
         };
         try {
-            await axios.post('/productupload/addproduct', product)
+            await axios.post('/product/add', product)
         } catch (error) {
             console.log(error)
         }
@@ -93,7 +93,7 @@ const AddProduct = () =>{
     return(
         <div>
         <Grid container direction="column" spacing={4} alignItems="left"
-         style={{marginLeft:'50px'}, {border:'2px solid green'}} > {/* GŁOWNY KONTENER */}
+         style={{marginLeft:'50px'}} > {/* GŁOWNY KONTENER */}
         <Grid item xs={4} sm={4}>
                 <TextField 
                 fullWidth

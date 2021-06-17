@@ -13,6 +13,7 @@ import ShoppingCart from './components/shoppingCart'
 import Shop from './components/shopItems/shop'
 import { Container } from '@material-ui/core';
 import AddProduct from './components/addNewProduct';
+import AddCategory from './components/addCategory';
 const theme = createMuiTheme({
    palette: {
      primary: {
@@ -39,6 +40,7 @@ function App() {
             <Route path='/cart' component={ShoppingCart} />
             <Route path='/shop' component={Shop} />
             <Route path='/productupload' component={AddProduct} />
+            <Route path='/category' component={AddCategory} />
             <Route path='/' component={Homepage} />
             
           </Switch>

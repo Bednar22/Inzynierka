@@ -1,4 +1,7 @@
 require('dotenv').config();
+
+//Module to use cloudinary - mostly in productUpload to manage images
+
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
