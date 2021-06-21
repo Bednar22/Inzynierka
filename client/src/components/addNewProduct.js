@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Grid from '@material-ui/core/Grid'
 import { TextField } from '@material-ui/core'
 import { Button, TextareaAutosize} from '@material-ui/core'
@@ -9,6 +9,7 @@ import axios from 'axios'
 
 const AddProduct = () =>{
 
+    //Form states
     const [name, setName] = useState('')
     const [category, setCategory] = useState('')
     const [price, setPrice] = useState()
@@ -21,6 +22,11 @@ const AddProduct = () =>{
     const [fileInput, setFileInput] = useState();
     const [selectedFile, setSelectedFile] = useState();
     const [previewSource,setPreviewSource] = useState()
+    
+    //Help states
+    const [categories, setCategories] = useState([])
+    const [subCategoriesHelp, setSubCategoriesHelp] = useState([])
+
     const handleFileInputChange = (e) => {
         const file = e.target.files[0]
         previewFile(file)
@@ -41,8 +47,6 @@ const AddProduct = () =>{
     }
 
     const uploadImage = async (base64EncodedImage) => {
-        
-    
         try{
         await fetch('/product/uploadimage',{
             method: 'POST',
@@ -54,7 +58,7 @@ const AddProduct = () =>{
             return res.json();
         }).then(data=>{
             console.log(data)
-            setPhotoId(()=>data.public_id)
+            setPhotoId(data.public_id)
         })
         }catch(error){
             console.error(error)
@@ -70,8 +74,10 @@ const AddProduct = () =>{
             description:description,
             category: category,
             subCategory: subCategory,
-            photoId:photoId
+            photo_id: photoId
         };
+
+        console.log(product)
         try {
             await axios.post('/product/add', product)
         } catch (error) {
@@ -81,8 +87,34 @@ const AddProduct = () =>{
 
     }
 
+    const getAll = async () => {
+        try {
+            await axios.get('/categories').then(res=>{
+                console.log(res.data)
+                setCategories(res.data)
+            })
+            
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(()=>{
+        getAll();
+    }, [])
+
+
+    const findSubCategorieArray = (categoryName) => {
+        const result = categories.find(({mainCategory})=>mainCategory===categoryName)
+        return result.subCategories;
+    }
+
     const handleSelectCategory = (e) => {
         setCategory(e.target.value);
+        const data = findSubCategorieArray(e.target.value)
+        console.log(data)
+        if(data.lenth!=0) setSubCategoriesHelp(data)
+        
       };
 
       const handleSelectSubCategory = (e) => {
@@ -115,9 +147,10 @@ const AddProduct = () =>{
                 value={category}
                 onChange={handleSelectCategory}
                 >
-                <MenuItem value={10}>Akcesoria</MenuItem>
-                <MenuItem value={20}>Odzież</MenuItem>
-                <MenuItem value={30}>Częśći</MenuItem>
+                {categories.map((item)=>{
+                    return(<MenuItem value={item.mainCategory}>{item.mainCategory}</MenuItem>)
+                })}
+                
             </Select>
 
             </Grid>
@@ -129,12 +162,16 @@ const AddProduct = () =>{
              fullWidth
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={category}
+                value={subCategory}
                 onChange={handleSelectSubCategory}
                 >
-                <MenuItem value={10}>Jeden</MenuItem>
-                <MenuItem value={20}>Dwa</MenuItem>
-                <MenuItem value={30}>Trzy</MenuItem>
+                {subCategoriesHelp.map((item)=>{
+                    return(
+                        <MenuItem value={item}>{item}</MenuItem>
+                    )
+                })}
+                
+                
             </Select>
 
             </Grid>

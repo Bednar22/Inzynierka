@@ -10,6 +10,14 @@
   margin-bottom: 50px;
 }
 
+.but-page:active {
+  box-shadow: "none";
+}
+
+.but-page:hover {
+  box-shadow: "none";
+}
+
 .footer {
   height: 200px;
   width: max-content;

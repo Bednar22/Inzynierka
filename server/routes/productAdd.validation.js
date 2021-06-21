@@ -8,9 +8,10 @@ function addProductValidation(bodyRequest) {
         name: Joi.string().required(),
         price: Joi.required(),
         category: Joi.string().required(),
-        subCategory: Joi.number().required(),
+        subCategory: Joi.string(),
         photoId: Joi.string(),
-        description: Joi.string()
+        description: Joi.string(),
+        photo_id: Joi.required()
     });
 
     return addProductSchema.validate(bodyRequest);

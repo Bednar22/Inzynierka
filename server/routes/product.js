@@ -3,6 +3,8 @@ const router = express.Router();
 const {cloudinary} =  require('./cloudinary')
 const Product = require('../models/product_model')
 const {addProductValidation} = require('./productAdd.validation');
+const db = require('mongodb')
+/* PRODUCT ROUTE: /product/{} */
 
 // Uploads image to cloudinary(image storage) and returns image data(uploadedResponse)
 
@@ -33,7 +35,7 @@ router.post('/add', async (req, res)=>{
         description:req.body.description,
         category:req.body.category,
         subCategory:req.body.subCategory,
-        photoId: req.body.photoId
+        photo_id: req.body.photo_id
     })
     console.log(product);
     try {
@@ -44,4 +46,25 @@ router.post('/add', async (req, res)=>{
     }
 
 })
+
+// Get all products
+router.get('/all', async (req, res)=>{
+    const limit = parseInt(req.query.toLimit)
+    const skip = parseInt(req.query.toSkip)
+    await Product.find().limit(limit).skip(skip)
+    .then(products => res.json(products))
+    .catch(err => res.status(400).json("Error: " + err));
+})
+
+
+// Get ammount of all items => needed to pagination
+router.get('/ammount', async (req, res)=> {
+    await Product.countDocuments({}, (err, count)=> {
+       res.json(count)
+    })
+     //.then(productsAmmount => res.json(poductsAmmount))
+    //  .then(productsAmmount => console.log(poductsAmmount))
+    //  .catch(err => res.status(400).json("Error: " + err));
+})
 module.exports = router;
+
