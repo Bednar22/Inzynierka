@@ -4,7 +4,19 @@ const router = express.Router();
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const {registerValidation, loginValidation} = require('./user.validation');
+const { verifyToken } = require('./verifyToken');
+require('dotenv/config');
+const {userRoleAuth} = require('./userRoleAuth')
 
+//Gets user role by user id from token
+router.get('/user',verifyToken,userRoleAuth(process.env.ROLE_DEFAULT),async(req,res)=>{
+    await User.findOne({_id: req.user._id})
+    .then(user=>{res.json({userRole:user.role, userId:user._id})})
+    .catch(err=>res.status(400).json("error. didnt find the user"))
+})
+
+
+//Get all for tests
 router.get('/', async(req,res)=>{
     await User.find()
     .then(users => res.json(users))
@@ -24,7 +36,7 @@ router.post('/login', async (req, res) => {
     const passCheck = await bcrypt.compare(req.body.password, user.password )
     if(!passCheck) return res.status(400).send('Niepoprawny email lub hasło'); 
 
-    const token = jwt.sign({_id: user._id}, process.env.TOKEN);
+    const token = jwt.sign({_id: user._id}, process.env.TOKEN/* , {expiresIn:600} */);
     res.header('auth-token', token).send(token);
 });
 
@@ -53,7 +65,8 @@ router.post('/register',  async (req, res) => {
         street:req.body.street,
         nr_domu:req.body.nr_domu,
         nr_mieszkania:req.body.nr_mieszkania,
-        kod_pocztowy: req.body.kod_pocztowy
+        kod_pocztowy: req.body.kod_pocztowy,
+        role: 'defUser'
     });
     console.log(user);
     try {

@@ -17,8 +17,8 @@ function registerValidation(bodyRequest) {
     const registerSchema = Joi.object({
         email: Joi.string().required().email(),
         password: Joi.string().min(6).required(),
-        //name: Joi.string(),
-        //surname: Joi.string(),
+        name: Joi.string(),
+        surname: Joi.string(),
         city: Joi.string().required(),
         street: Joi.string().required(),
         nr_domu: Joi.number().required(),

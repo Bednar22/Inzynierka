@@ -12,7 +12,8 @@ const UserSchema = mongoose.Schema({
     nr_domu: Number,
     nr_mieszkania: Number,
     kod_pocztowy: Number,
-    zamowienia: Array
+    zamowienia: Array,
+    role: String
 
 })
 

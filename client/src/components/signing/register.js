@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import {TextField, Grid, Button} from '@material-ui/core'
+import {useHistory} from 'react-router-dom'
 
 const Register = () => {
     //STATES --> same as user schema
@@ -15,6 +16,7 @@ const Register = () => {
     const [kod_pocztowy, setKodpocztowy] = useState();
 
     const[pass2, setPass2] = useState('')
+    const history = useHistory()
 
     const checkPasswords = () => {
         if(password===pass2) return true;
@@ -50,13 +52,20 @@ const Register = () => {
             kod_pocztowy: kod_pocztowy
         };
 
+        const goToAfterSingUp = () => {
+            history.push("/")
+        }
+        
         axios.post('/users/register', user)
         .then(res=>{
             console.log(res);
              console.log(res.data);
+             restartStates();
+             goToAfterSingUp();
          })
+        
         e.preventDefault();
-        restartStates();
+        
 
     }
     

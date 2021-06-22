@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import '../../App.css'
 import axios from 'axios'
+import {useHistory} from 'react-router-dom'
 
 //material ui imports
 import {TextField, Button, Grid, Typography, Card} from'@material-ui/core'
@@ -10,7 +11,18 @@ const LoginForm = () => {
     const[password, setPassword] = useState('');
     const[email, setMail] = useState('');
 
-    const restartStates = () =>{
+    const history = useHistory();
+
+    const goToAfterSingIn = () => {
+        history.push("/")
+    }
+
+    const saveToken = () => {
+
+    }
+
+
+    const restartStates = () =>{ //MOZE DO USUNIECIA
         setMail('');
         setPassword('');
     }
@@ -23,7 +35,11 @@ const LoginForm = () => {
         }
         console.log(user);
 
-        axios.post('/users/login', user).then(res=>console.log(res.data));
+        axios.post('/users/login', user).then(res=>{
+            console.log(res.data)
+            localStorage.setItem("token",res.data)
+            goToAfterSingIn()
+        });
         
         e.preventDefault();
         restartStates();
