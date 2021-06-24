@@ -30,7 +30,10 @@ const productRoute = require('./routes/product')
 app.use('/product', productRoute);
 //categories
 const categoriesRoute = require('./routes/categories')
-app.use('/categories', categoriesRoute);
+app.use('/categories', categoriesRoute);  
+//orders
+const ordersRoute = require('./routes/order')
+app.use('/order', ordersRoute)
 //storage
 /* HERE STORAGE API --> MAGAZYNOWE SPRAWY */
 

@@ -14,6 +14,8 @@ import Shop from './components/shopItems/shop'
 import { Container } from '@material-ui/core';
 import AddProduct from './components/addNewProduct';
 import AddCategory from './components/addCategory';
+import Order from './components/order/order'
+
 const theme = createMuiTheme({
    palette: {
      primary: {
@@ -35,6 +37,7 @@ function App() {
       <Navbar></Navbar>
       <Container maxWidth="lg">
           <Switch>
+            <Route path="/order" component={Order} />
             <Route path="/users/register" component={Register} />
             <Route path="/users" component={LoginForm} />
             <Route path='/cart' component={ShoppingCart} />

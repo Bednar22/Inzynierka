@@ -26,7 +26,7 @@ res.json(savedCategory);
 });
 
 //Get all categories (GET)
-router.get('/', verifyToken,userRoleAuth(process.env.ROLE_ADMIN),async(req,res)=>{  
+router.get('/', verifyToken,userRoleAuth(process.env.ROLE_DEFAULT),async(req,res)=>{  
     await Category.find()
     .then(categories => res.json(categories))
     .catch(err => res.status(400).json("Error: " + err));

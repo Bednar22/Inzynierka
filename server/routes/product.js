@@ -3,7 +3,7 @@ const router = express.Router();
 const {cloudinary} =  require('./cloudinary')
 const Product = require('../models/product_model')
 const {addProductValidation} = require('./productAdd.validation');
-const db = require('mongodb')
+
 /* PRODUCT ROUTE: /product/{} */
 
 // Uploads image to cloudinary(image storage) and returns image data(uploadedResponse)

@@ -8,12 +8,24 @@ const { verifyToken } = require('./verifyToken');
 require('dotenv/config');
 const {userRoleAuth} = require('./userRoleAuth')
 
+//ALL PATH START WITH: '/users/{...} ==> !!!
+
 //Gets user role by user id from token
 router.get('/user',verifyToken,userRoleAuth(process.env.ROLE_DEFAULT),async(req,res)=>{
     await User.findOne({_id: req.user._id})
     .then(user=>{res.json({userRole:user.role, userId:user._id})})
     .catch(err=>res.status(400).json("error. didnt find the user"))
 })
+
+//Gets whole user info
+router.get('/userInfo/:pies',verifyToken,async(req,res)=>{
+    console.log(req.params)
+    await User.findOne({_id: req.user._id})
+    .then(user=>{console.log(user)
+        res.json(user)})
+    .catch(err=>res.status(400).json("error. didnt find the user"))
+})
+
 
 
 //Get all for tests
@@ -22,6 +34,7 @@ router.get('/', async(req,res)=>{
     .then(users => res.json(users))
     .catch(err => res.status(400).json("Error: " + err));
 })
+
 
 //Logs users to website, returns jwt to user
 router.post('/login', async (req, res) => {
@@ -77,4 +90,13 @@ router.post('/register',  async (req, res) => {
     }
 
 });
+
+router.put('/', async(req,res)=>{
+    await User.find()
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json("Error: " + err));
+});
+
+
+
 module.exports = router;
