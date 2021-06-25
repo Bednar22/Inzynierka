@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Grid from '@material-ui/core/Grid'
 import { TextField } from '@material-ui/core'
-import { Button, TextareaAutosize} from '@material-ui/core'
+import { Button} from '@material-ui/core'
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -20,7 +20,7 @@ const AddProduct = () =>{
     
     //To input photo
     const [fileInput, setFileInput] = useState();
-    const [selectedFile, setSelectedFile] = useState();
+    //const [selectedFile, setSelectedFile] = useState();
     const [previewSource,setPreviewSource] = useState()
     
     //Help states

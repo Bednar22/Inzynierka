@@ -16,7 +16,7 @@ const AddCategory = () => {
 
     const addSubCategory = () => {
         console.log(subCategory)
-        if(subCategory&&subCategory != '') 
+        if(subCategory&&subCategory !== '') 
         setSubCategoriesArray([...subCategoriesArray, subCategory]) //dodaje element do arraya kopiujac go
         console.log(subCategoriesArray)
     }
@@ -97,7 +97,7 @@ return(
 
             </Grid> 
             <Grid item xs={4} sm={4}>
-            {subCategoriesArray.length==0 ? (<List subheader={<ListSubheader>Podkategorie:</ListSubheader>}><Divider/></List>) : (showSubCategories())  }
+            {subCategoriesArray.length===0 ? (<List subheader={<ListSubheader>Podkategorie:</ListSubheader>}><Divider/></List>) : (showSubCategories())  }
             </Grid>
             <Grid item xs={2} sm={2}>
                 <Button variant="contained" color="secondary" fullWidth onClick={(e)=>handleAddCategory(e)}>Dodaj kategorie</Button>

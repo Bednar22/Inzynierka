@@ -32,21 +32,26 @@ const Order = () => {
         setName(user.name);
         setSurname(user.surname);
         setCity(user.city);
+        setStreet(user.street);
         setNrDomu(user.nr_domu);
         setNrMieszkania(user.nr_mieszkania);
         setKodpocztowy(user.kod_pocztowy);
     }
 
     const getUserInfo = async () => {
-        try {
-            await axios.get('/users/userInfo/ss', {
-                headers:{
-                    "auth-token": localStorage.getItem('token'),
-                    },
-                }
-            ).then(res=>{ /* setUserInfo(res.data) */ console.log(res.data)})    
-        } catch (error) {
-            console.log(error)   
+        
+        if(localStorage.getItem('token')){
+            try {
+                await axios.get('/users/userInfo/ss', {
+                    headers:{
+                        "auth-token": localStorage.getItem('token'),
+                        },
+                    }
+                ).then(res=>{ 
+                    setUserInfo(res.data)})    
+            } catch (error) {
+                console.log(error)   
+            }
         }
     }
 
@@ -81,17 +86,120 @@ const Order = () => {
     return(
         
         <Grid container direction='column' spacing={2}>
+            
             <Grid item> 
                 <Button onClick={getUserInfo}> Zeruj dane </Button> 
             </Grid>
-            <Grid item>
+            
+            <Grid item  container spacing={2} sm={6} >
+            
+            <Grid item sm={6}>
             <TextField 
+                fullWidth
                 variant='outlined' 
                 placeholder='Imię'
                 type='text'
+                value={name}
                 onChange={(e)=>setName(e.target.value)}>
             </TextField>
             </Grid>
+
+            <Grid item sm={6}>
+            <TextField 
+            fullWidth
+                variant='outlined' 
+                placeholder='Nazwisko'
+                type='text'
+                value={surname}
+                onChange={(e)=>setSurname(e.target.value)}>
+            </TextField>
+            </Grid>
+            </Grid>
+
+            <Grid item  container spacing={2} sm={6} >
+            <Grid item sm={6}>
+            <TextField 
+                fullWidth
+                variant='outlined' 
+                placeholder='E-mail'
+                type='text'
+                value={email}
+                onChange={(e)=>setEmail(e.target.value)}>
+            </TextField>
+            </Grid>
+
+            <Grid item sm={6}>
+            <TextField 
+                fullWidth
+                variant='outlined' 
+                placeholder='Nr telefonu'
+                type='text'
+                value={email}
+                onChange={(e)=>setEmail(e.target.value)}>
+            </TextField>
+            </Grid>
+            </Grid>
+            <Grid item container spacing={2} sm={6}>
+            <Grid item sm={6}>
+            <TextField 
+                fullWidth
+                variant='outlined' 
+                placeholder='Ulica'
+                type='text'
+                value={street}
+                onChange={(e)=>setStreet(e.target.value)}>
+            </TextField>
+            </Grid>
+
+            <Grid item sm={3}>
+            <TextField 
+                fullWidth   
+                variant='outlined' 
+                placeholder='Nr domu'
+                type='number'
+                value={nr_domu}
+                onChange={(e)=>setNrDomu(e.target.value)}>
+            </TextField>
+            </Grid>
+
+            <Grid item sm={3}>
+            <TextField 
+                fullWidth
+                variant='outlined' 
+                placeholder='Nr mieszkania'
+                type='text'
+                value={nr_mieszkania}
+                onChange={(e)=>setNrMieszkania(e.target.value)}>
+            </TextField>
+            </Grid>
+
+            </Grid>
+
+            
+            <Grid item container sm={6} spacing={2}>
+            <Grid item sm={6}>
+            <TextField
+                fullWidth  
+                variant='outlined' 
+                placeholder='Miasto'
+                type='text'
+                value={city}
+                onChange={(e)=>setCity(e.target.value)}>
+            </TextField>
+            </Grid>
+
+            <Grid item sm={6}>
+            <TextField 
+                fullWidth
+                variant='outlined' 
+                placeholder='Kod pocztowy'
+                type='text'
+                value={kod_pocztowy}
+                onChange={(e)=>setKodpocztowy(e.target.value)}>
+            </TextField>
+            </Grid>
+            </Grid>
+
             
         </Grid>
         

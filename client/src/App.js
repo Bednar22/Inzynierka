@@ -15,6 +15,7 @@ import { Container } from '@material-ui/core';
 import AddProduct from './components/addNewProduct';
 import AddCategory from './components/addCategory';
 import Order from './components/order/order'
+import { UserAuthProvider } from './components/signing/authContext'
 
 const theme = createMuiTheme({
    palette: {
@@ -35,17 +36,18 @@ function App() {
     <ThemeProvider theme={theme}>
     <BrowserRouter>
       <Navbar></Navbar>
-      <Container maxWidth="lg">
+      <Container /* maxWidth="lg" */>
           <Switch>
-            <Route path="/order" component={Order} />
-            <Route path="/users/register" component={Register} />
-            <Route path="/users" component={LoginForm} />
-            <Route path='/cart' component={ShoppingCart} />
-            <Route path='/shop' component={Shop} />
-            <Route path='/productupload' component={AddProduct} />
-            <Route path='/category' component={AddCategory} />
-            <Route path='/' component={Homepage} />
-            
+              <UserAuthProvider>
+              <Route path="/order" component={Order} />
+              <Route path="/users/register" component={Register} />
+              <Route path="/users" component={LoginForm} />
+              <Route path='/cart' component={ShoppingCart} />
+              <Route path='/shop' component={Shop} />
+              <Route path='/productupload' component={AddProduct} />
+              <Route path='/category' component={AddCategory} />
+              <Route exact path='/' component={Homepage} />
+            </UserAuthProvider>
           </Switch>
       </Container>
       <Footer></Footer>
