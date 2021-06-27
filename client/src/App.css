@@ -6,6 +6,10 @@
   border: 2px solid green;
 }
 
+.navbar-link {
+  text-decoration: "none";
+}
+
 .navbar {
   margin-bottom: 50px;
 }

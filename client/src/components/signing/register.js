@@ -49,7 +49,8 @@ const Register = () => {
             street:street,
             nr_domu: nr_domu,
             nr_mieszkania: nr_mieszkania,
-            kod_pocztowy: kod_pocztowy
+            kod_pocztowy: kod_pocztowy,
+            role: 'defUser'
         };
 
         const goToAfterSingUp = () => {

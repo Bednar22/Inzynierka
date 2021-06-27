@@ -6,7 +6,8 @@ function addProductValidation(bodyRequest) {
 
     const addProductSchema = Joi.object({
         name: Joi.string().required(),
-        price: Joi.required(),
+        price: Joi.number().required(),
+        discountPrice:Joi.number(),
         category: Joi.string().required(),
         subCategory: Joi.string(),
         photoId: Joi.string(),

@@ -7,14 +7,13 @@ import {Button, ButtonGroup, Grid} from '@material-ui/core/';
 import PersonIcon from '@material-ui/icons/Person';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Badge from '@material-ui/core/Badge'
-
+import {Link as MaterialLink} from '@material-ui/core';
 import '../../App.css';
 
 export default function Navbar() {
 
   return (
-    <div >
-     
+     <>
       <AppBar position="static"  color="secondary" className='navbar'>
         <Toolbar> 
           <Typography variant="h6" >
@@ -22,13 +21,13 @@ export default function Navbar() {
             <Button>LOGO</Button>
           </Link>
           </Typography>
-          <Grid container direction='row' justify='center' allignItems='center' >
-          <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-          <Link to='shop'><Button>Części</Button></Link>
-          <Link to='shop'><Button>Odzież</Button></Link>
-         <Link to='shop'><Button>Akcesoria</Button></Link>
-         <Link to='shop'><Button>Promocje</Button></Link>
-        </ButtonGroup>
+          <Grid container direction='row' justify='center'>
+            <ButtonGroup color="primary" aria-label="text primary button group"> {/* className='navbar-link' */}
+            <Link to='shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Części</Button></MaterialLink></Link> 
+            <Link to='shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Odzież</Button></MaterialLink></Link> 
+            <Link to='shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Akcesoria</Button></MaterialLink></Link> 
+            <Link to='shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Promocje</Button></MaterialLink></Link> 
+            </ButtonGroup>
           </Grid>
           
          <Button>
@@ -36,13 +35,13 @@ export default function Navbar() {
            <Badge  badgeContent={4} color='error'><ShoppingBasketIcon color='primary' /> </Badge>
           </Link>
           </Button>
-          <Link to='/users/register'>
+          <Link to='/users/login'>
          <Button><PersonIcon color='primary' /></Button>
          </Link>
         </Toolbar>
       </AppBar>
     
-    </div>
+    </>
     
   );
 }

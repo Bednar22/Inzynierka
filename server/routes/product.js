@@ -6,6 +6,29 @@ const {addProductValidation} = require('./productAdd.validation');
 
 /* PRODUCT ROUTE: /product/{} */
 
+//Gets product by id 
+router.get('/:id', async(req,res)=>{
+    console.log('haha')
+    console.log(req.params.id)    
+    await Product.findOne({_id: req.params.id})
+    .then(product=>{res.json(product)})
+    .catch(err=>res.status(400).json("error. didnt find the product"))
+})
+
+router.get('/get/all', async(req,res)=>{
+    const productsIds = JSON.parse(req.query.productsIds)
+    const productsInfo = [];
+    console.log(` IDKI TO : ${productsIds}`) 
+    for(let i=0; i<productsIds.length; i++){
+        await Product.findOne({_id: productsIds[i]}).then(product=>{productsInfo.push(product)})
+            .catch(err=>res.status(400).json("error. didnt find the product"))
+    }
+    console.log(productsInfo)
+    res.json(productsInfo)
+    
+})
+
+
 // Uploads image to cloudinary(image storage) and returns image data(uploadedResponse)
 
 router.post('/uploadimage', async (req, res)=>{
@@ -48,23 +71,37 @@ router.post('/add', async (req, res)=>{
 })
 
 // Get all products
-router.get('/all', async (req, res)=>{
+router.get('/', async (req, res)=>{
     const limit = parseInt(req.query.toLimit)
     const skip = parseInt(req.query.toSkip)
-    await Product.find().limit(limit).skip(skip)
-    .then(products => res.json(products))
-    .catch(err => res.status(400).json("Error: " + err));
+    const category = String(req.query.category)
+    console.log(category)
+    if(category==='' || category === undefined ){
+        await Product.find().limit(limit).skip(skip)
+        .then(products => res.json(products))
+        .catch(err => res.status(400).json("Error: " + err));
+    } else{
+        //console.log(req.params.category)
+        await Product.find({category:category}).limit(limit).skip(skip)
+        .then(product=>{res.json(product)})
+        .catch(err=>res.status(400).json("error. no product match this category"))
+    }
+    
 })
-
 
 // Get ammount of all items => needed to pagination
-router.get('/ammount', async (req, res)=> {
+router.get('/ammount/get', async (req, res)=> {
+
     await Product.countDocuments({}, (err, count)=> {
-       res.json(count)
+        res.json(count)
     })
-     //.then(productsAmmount => res.json(poductsAmmount))
-    //  .then(productsAmmount => console.log(poductsAmmount))
-    //  .catch(err => res.status(400).json("Error: " + err));
 })
-module.exports = router;
+
+// router.get('/:category', async(req,res)=>{
+//     await Product.find({category: req.params.category})
+//     .then(product=>{res.json(product)})
+//     .catch(err=>res.status(400).json("error. no product match this category"))
+// })
+
+module.exports = router; 
 

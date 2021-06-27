@@ -2,7 +2,11 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {TextField, Grid, Button} from '@material-ui/core'
 import {useHistory} from 'react-router-dom'
-
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const Order = () => {
     //STATES --> same as user schema
@@ -14,7 +18,8 @@ const Order = () => {
     const [nr_domu,setNrDomu] = useState();
     const [nr_mieszkania,setNrMieszkania] = useState();
     const [kod_pocztowy, setKodpocztowy] = useState();
-
+    const [shipment, setShipment]  = useState('')
+    const [payment, setPayment] = useState('')
     const history = useHistory()
 
     const restartStates = () => {
@@ -81,6 +86,11 @@ const Order = () => {
         
         e.preventDefault();
         
+    }
+
+    const goToSummary = () => {
+
+
     }
     
     return(
@@ -198,10 +208,35 @@ const Order = () => {
                 onChange={(e)=>setKodpocztowy(e.target.value)}>
             </TextField>
             </Grid>
+
+            </Grid> {/* koneic kontenera z miastem i koedem */}
+
+            <Grid item>
+            <FormControl component="fieldset">
+                <FormLabel disabled component="legend" required /* color='secondary' */>Rodzaj wysyłki</FormLabel>
+                <RadioGroup aria-label="shipment" name="shipment1" value={shipment} onChange={(e)=>setShipment(e.target.value)}>
+                    <FormControlLabel value="Kurier" control={<Radio />} label="Kurier" />
+                    <FormControlLabel value="Paczkomat" control={<Radio />} label="Paczkomat" />
+                    <FormControlLabel value="Poczta" control={<Radio />} label="Poczta polska" />
+                </RadioGroup>
+            </FormControl>
             </Grid>
 
-            
-        </Grid>
+            <Grid item>
+            <FormControl component="fieldset">
+                <FormLabel disabled component="legend" required /* color='secondary' */>Rodzaj płatności</FormLabel>
+                <RadioGroup aria-label="payment" name="payment1" value={payment} onChange={(e)=>setPayment(e.target.value)}>
+                    <FormControlLabel value="Karta " control={<Radio />} label="Karta kredytowa" />
+                    <FormControlLabel value="Przelew" control={<Radio />} label="Przelew" />
+                    <FormControlLabel value="Gotowka" control={<Radio />} label="Gotowka" />
+                </RadioGroup>
+            </FormControl>
+            </Grid>
+            <Grid item>
+                <Button variant='outlined' onClick={goToSummary}>Podsumowanie</Button>
+            </Grid>
+        </Grid> /* koneic głownego kontenera */
+        
         
 
     

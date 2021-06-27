@@ -16,6 +16,7 @@ import AddProduct from './components/addNewProduct';
 import AddCategory from './components/addCategory';
 import Order from './components/order/order'
 import { UserAuthProvider } from './components/signing/authContext'
+import ShopItem from './components/shopItems/shopItem';
 
 const theme = createMuiTheme({
    palette: {
@@ -43,9 +44,10 @@ function App() {
               <Route path="/users/register" component={Register} />
               <Route path="/users" component={LoginForm} />
               <Route path='/cart' component={ShoppingCart} />
-              <Route path='/shop' component={Shop} />
+              <Route exact path='/shop' component={Shop} />
               <Route path='/productupload' component={AddProduct} />
               <Route path='/category' component={AddCategory} />
+              <Route path='/shop/item/:id' component={ShopItem} />
               <Route exact path='/' component={Homepage} />
             </UserAuthProvider>
           </Switch>

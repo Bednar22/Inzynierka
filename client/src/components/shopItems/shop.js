@@ -6,9 +6,10 @@ import Card from '@material-ui/core/Card'
 import Paper from '@material-ui/core/Paper';
 import ProductsPage from './productsPage'
 import "./../../App.css"
-import ShopItem from './shopItem'
+import ShopItemCard from './shopItemCard'
 import Pagination from './pagination'
 import axios from 'axios'
+import FilterCategory from './filterCategory'
 
 const Shop = () => {
 
@@ -17,18 +18,21 @@ const Shop = () => {
     const [items, setItems] = useState([])
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const [itemsAmmount, setItemsAmmount] = useState(1);
+    const [cat, setCat] = useState('')
 
     const getProducts = async() => {
         setLoading(true)
-        const res = await axios.get('/product/all', {
+        const res = await axios.get(`/product/`, {
             params:{
+                category:cat,
                 toLimit:itemsPerPage,
                 toSkip: (currentPage-1)*itemsPerPage
             }
         })
+        console.log(res.data)
         setItems(res.data)
         setLoading(false)
-        setItemsAmmount(res.data.length)
+        //setItemsAmmount(res.data.length)
     }
 
     
@@ -41,8 +45,8 @@ const Shop = () => {
 
     const getAmmount = async() => {
         try {
-            await axios.get('/product/ammount').then(res=>{
-                //console.log(res.data)
+            await axios.get('/product/ammount/get').then(res=>{
+                console.log(res.data)
                 setItemsAmmount(res.data)
                 
             })
@@ -83,15 +87,15 @@ const Shop = () => {
                 <Grid container spacing={3}> {/* ITEMS CONTAINER */}
                 {items.map((item)=> {
                     return(
-                        <Grid item xs={4}>
-                    <ShopItem name={item.name}></ShopItem>
+                        <Grid item key={item._id} xs={4}>
+                    <ShopItemCard  _id={item._id} name={item.name}></ShopItemCard>
                 </Grid>
                     )
                 })}
                 </Grid>
                 
                 <Grid item container justify='center'>
-                    <Pagination changePage={changePage} itemsAmmount={50} itemsPerPage={10}></Pagination>   
+                    <Pagination changePage={changePage} itemsAmmount={itemsAmmount} itemsPerPage={10}></Pagination>   
                 </Grid>
     
                 </Grid> 

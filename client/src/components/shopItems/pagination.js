@@ -25,7 +25,7 @@ const Pagination = (props) => {
     //const pages = setPagesNumber(); // number of pages
     
     return (
-        <Grid container direction="row" sm={8} xs={6}  justify='center' spacing={1} style={{marginTop:'30px'}} >
+        <Grid container item direction="row" sm={8} xs={6}  justify='center' spacing={1} style={{marginTop:'30px'}} >
             <Grid item>
             <IconButton size="small">
                 <KeyboardArrowLeftIcon />

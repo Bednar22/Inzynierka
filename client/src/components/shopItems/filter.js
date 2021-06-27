@@ -3,17 +3,15 @@ import {Grid, List} from '@material-ui/core'
 import axios from 'axios'
 import FilterCategory from './filterCategory'
 
-const Filter = () => {
+const Filter = (props) => {
 
     const [categories, setCategories] = useState([])
    
 
     const getCategories = async () => {
-      
       try {
            await axios.get('/categories').then(res=>{
               setCategories(res.data)
-              console.log(res.data)
         })
       } catch (error) {
         console.error(error)
@@ -25,7 +23,7 @@ const Filter = () => {
     },[])
 
     return (
-        <Grid container xs={4}>
+        <Grid container item xs={4}>
           <Grid item>
             <List fullWidth>
               {categories.map((item)=>{

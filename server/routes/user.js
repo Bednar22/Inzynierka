@@ -50,7 +50,9 @@ router.post('/login', async (req, res) => {
     if(!passCheck) return res.status(400).send('Niepoprawny email lub hasło'); 
 
     const token = jwt.sign({_id: user._id}, process.env.TOKEN/* , {expiresIn:600} */);
-    res.header('auth-token', token).send(token);
+    res.header('authtoken', token).json(user.role).send()
+    //res.header({userRole:user.role, token: token})
+    //{res.json({userRole:user.role, userId:user._id})}
 });
 
 // sings in user to website, process with validation and password hashing

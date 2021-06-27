@@ -9,7 +9,7 @@ const FilterCategory = (props) => {
 
     return(
         <>
-            <ListItem button >
+            <ListItem button  >
               <ListItemText primary={props.categoryName} />
         
               <ListItemSecondaryAction>

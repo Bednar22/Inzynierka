@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import '../../App.css'
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
+import { useUserAuth } from '../signing/authContext'
 
 //material ui imports
 import {TextField, Button, Grid, Typography, Card} from'@material-ui/core'
@@ -10,15 +11,11 @@ const LoginForm = () => {
 
     const[password, setPassword] = useState('');
     const[email, setMail] = useState('');
-
     const history = useHistory();
+    const { currentUser, setCurrentUser } = useUserAuth() //importowane wartosci z hooka, tam bedzie user role
 
     const goToAfterSingIn = () => {
         history.push("/")
-    }
-
-    const saveToken = () => {
-
     }
 
 
@@ -33,11 +30,10 @@ const LoginForm = () => {
             email: email,
             password: password
         }
-        console.log(user);
 
         axios.post('/users/login', user).then(res=>{
-            console.log(res.data)
-            localStorage.setItem("token",res.data)
+            setCurrentUser(res.data)
+            localStorage.setItem("token",res.headers.authtoken)
             goToAfterSingIn()
         });
         
