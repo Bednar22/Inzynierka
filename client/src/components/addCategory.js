@@ -44,22 +44,6 @@ const AddCategory = () => {
 
     }
 
-    const getAll = async () => {
-        try {
-            await axios.get('/categories' 
-                // await axios.get('/users/user', {
-                // headers:{
-                //     "auth-token": localStorage.getItem('token'),
-                // },
-            ).then(res=>{
-                console.log(res.data)
-                //return res.json();
-            })
-            
-        } catch (error) {
-            console.error(error)
-        }
-    }
 
     const handleAddCategory = async(e) =>{
         e.preventDefault();
@@ -104,7 +88,6 @@ return(
             </Grid>
         </Grid>{/* KONIEC GŁOWNEGO KONTENERA */}
 
-        <Button onClick={getAll}>GET</Button>
     </div>
 
 )

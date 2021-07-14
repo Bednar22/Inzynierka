@@ -72,83 +72,134 @@ const Register = () => {
     
     return(
         
-        <Grid container direction='column' alignItems='center' spacing={2}>
-            <Grid item>
+        <Grid container direction='column' alignItems="center"
+         spacing={4}  style={{border:'2px solid red'}}>
+           <Grid spacing={4} container item direction='row' 
+           justify='center' sm={8} > {/* IMIE I NAZWISKO */}
+           <Grid item sm={4} xs={4} >
             <TextField 
+                fullWidth
                 variant='outlined' 
                 placeholder='Imię'
                 type='text'
                 onChange={(e)=>setName(e.target.value)}>
             </TextField>
             </Grid>
-            <Grid item>
+            <Grid item sm={4} xs={4}>
             <TextField 
+                fullWidth
                 variant='outlined' 
                 placeholder='Nazwisko'
                 type='text'
                 onChange={(e)=>setSurname(e.target.value)}>
             </TextField>
             </Grid>
-            <Grid item>
+           </Grid>{/* IMIE I NAZWISKO */}
+            
+           <Grid spacing={4} container item direction='row'
+            justify='center' sm={8} > {/* MAIL I TELEFON */}
+            <Grid item sm={4} xs={4}>
             <TextField 
+                fullWidth
                 variant='outlined' 
                 placeholder='Adres e-mail'
                 type='email'
                 onChange={(e)=>setEmail(e.target.value)}>
             </TextField>
             </Grid>
-           <Grid item>
+            <Grid item sm={4} xs={4}>
+            <TextField 
+                fullWidth
+                variant='outlined' 
+                placeholder='Nr telefonu'
+                type='text'
+                >
+            </TextField>
+            </Grid>
+            </Grid> {/* MAIL I NR TELEFONU */}
+
+            <Grid spacing={4} container item direction='row'
+             justify='center' sm={8} > {/* HASLA */}
+            <Grid item sm={4} xs={4}>
             <TextField variant='outlined' 
+                fullWidth
                 placeholder='Hasło'
                 type='password'
                 onChange={(e)=>setPassword(e.target.value)}>
                 </TextField>
             </Grid>
-            <Grid item>
+            <Grid item sm={4} xs={4}>
             <TextField variant='outlined' 
+                fullWidth
                 placeholder='Powtórz hasło'
                 type='password'
                 onChange={(e)=>setPass2(e.target.value)}>
             </TextField>
             </Grid>
-            <Grid item>
-            <TextField variant='outlined' 
-                placeholder='Miasto'
-                type='text'
-                onChange={(e)=>setCity(e.target.value)}>
-            </TextField>
             </Grid>
-            <Grid item>
+
+            <Grid spacing={2} container item direction='row' 
+            justify='center' sm={8} > {/* Ulica mieszkanie dom */}
+            
+            <Grid item sm={3} xs={3}>
             <TextField variant='outlined' 
+                fullWidth
                 placeholder='Ulica'
                 type='text'
                 onChange={(e)=>setStreet(e.target.value)}>
             </TextField>
             </Grid>
-            <Grid item>
+            <Grid item sm={2} xs={2}>
             <TextField variant='outlined' 
+                fullWidth
                 placeholder='Numer domu'
                 type='text'
-                onChange={(e)=>setNrDomu(e.target.value)}>
+                onChange={(e)=>setNrDomu(e.target.value)}
+                label='Numer domu'
+                color='secondary'
+                InputLabelProps={{
+                    shrink: true,
+                  }}>
             </TextField>
             </Grid>
-            <Grid item>
+            <Grid item sm={3} xs={2}>
             <TextField variant='outlined' 
-                placeholder='Numer mieszkania'
+                fullWidth
+               // placeholder='Numer mieszkania'
                 type='text'
+                label='Numer mieszkania'
+                color='secondary'
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 onChange={(e)=>setNrMieszkania(e.target.value)}>
             </TextField>
             </Grid>
-            <Grid item>
+            </Grid>
+            <Grid spacing={4} container item direction='row'
+             justify='center' sm={8} > {/* MIASTO I KP */}
+             <Grid item sm={4} xs={4}>
             <TextField variant='outlined' 
+                fullWidth
+                placeholder='Miasto'
+                type='text'
+                onChange={(e)=>setCity(e.target.value)}>
+            </TextField>
+            </Grid>
+            <Grid item sm={4} xs={4}>
+            <TextField variant='outlined' 
+                fullWidth
                 placeholder='Kod pocztowy'
                 type='text'
                 onChange={(e)=>setKodpocztowy(e.target.value)}>
             </TextField>
             </Grid>
-            <Grid item>
+            </Grid> {/* MIASTO I KP */}
+            
+            <Grid item> {/* ADD BUTTON */}
                 <Button variant='outlined' type='submit' onClick={(e)=>addUser(e)}  >Dodaj</Button>
             </Grid>
+            
         </Grid>
         
 

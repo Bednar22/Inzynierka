@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,8 +9,17 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Badge from '@material-ui/core/Badge'
 import {Link as MaterialLink} from '@material-ui/core';
 import '../../App.css';
+import { useUserAuth } from '../signing/authContext'
 
 export default function Navbar() {
+
+  const [cartItems, setCartItems] = useState(0)
+  const { currentUser } = useUserAuth()
+  
+  useEffect(()=>{
+    let itemsInCart = JSON.parse(localStorage.getItem('cart')).length
+    setCartItems(itemsInCart)
+  },[])
 
   return (
      <>
@@ -32,12 +41,15 @@ export default function Navbar() {
           
          <Button>
          <Link to='/cart'>
-           <Badge  badgeContent={4} color='error'><ShoppingBasketIcon color='primary' /> </Badge>
+           <Badge  badgeContent={cartItems} color='error'><ShoppingBasketIcon color='primary' /> </Badge>
           </Link>
           </Button>
-          <Link to='/users/login'>
+          {currentUser ?   <Link to='/dashboard'>
          <Button><PersonIcon color='primary' /></Button>
-         </Link>
+         </Link> :  <Link to='/login'>
+         <Button><PersonIcon color='primary' /></Button>
+         </Link> }
+          
         </Toolbar>
       </AppBar>
     

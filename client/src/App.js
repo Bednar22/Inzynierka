@@ -3,21 +3,23 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 //material-ui
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
+import { Container } from '@material-ui/core';
 //components
 import Navbar from './components/layout/navbar.component'
 import Homepage from './components/homepage/homepage'
 import LoginForm from './components/signing/loginForm';
 import Register from './components/signing/register'
 import Footer from './components/layout/footer'
-import ShoppingCart from './components/shoppingCart'
+import ShoppingCart from './components/shoppingCart/shoppingCartMain'
 import Shop from './components/shopItems/shop'
-import { Container } from '@material-ui/core';
 import AddProduct from './components/addNewProduct';
 import AddCategory from './components/addCategory';
 import Order from './components/order/order'
 import { UserAuthProvider } from './components/signing/authContext'
 import ShopItem from './components/shopItems/shopItem';
+import Dashboard from './components/userDashboard/dashboard';
 
+//Themes, used to set color of application
 const theme = createMuiTheme({
    palette: {
      primary: {
@@ -36,23 +38,24 @@ function App() {
     <>
     <ThemeProvider theme={theme}>
     <BrowserRouter>
+    <UserAuthProvider>
       <Navbar></Navbar>
       <Container /* maxWidth="lg" */>
           <Switch>
-              <UserAuthProvider>
               <Route path="/order" component={Order} />
-              <Route path="/users/register" component={Register} />
-              <Route path="/users" component={LoginForm} />
+              <Route path="/register" component={Register} />
+              <Route path="/login" component={LoginForm} />
               <Route path='/cart' component={ShoppingCart} />
               <Route exact path='/shop' component={Shop} />
               <Route path='/productupload' component={AddProduct} />
               <Route path='/category' component={AddCategory} />
               <Route path='/shop/item/:id' component={ShopItem} />
+              <Route path='/dashboard' component={Dashboard} />
               <Route exact path='/' component={Homepage} />
-            </UserAuthProvider>
           </Switch>
       </Container>
-      <Footer></Footer>
+      </UserAuthProvider>
+      <Footer></Footer> 
       </BrowserRouter>
     </ThemeProvider>
     </>

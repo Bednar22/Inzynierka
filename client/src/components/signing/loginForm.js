@@ -3,6 +3,7 @@ import '../../App.css'
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
 import { useUserAuth } from '../signing/authContext'
+import {Link} from 'react-router-dom'
 
 //material ui imports
 import {TextField, Button, Grid, Typography, Card} from'@material-ui/core'
@@ -13,6 +14,7 @@ const LoginForm = () => {
     const[email, setMail] = useState('');
     const history = useHistory();
     const { currentUser, setCurrentUser } = useUserAuth() //importowane wartosci z hooka, tam bedzie user role
+    const [error, setError] = useState(false)
 
     const goToAfterSingIn = () => {
         history.push("/")
@@ -22,6 +24,7 @@ const LoginForm = () => {
     const restartStates = () =>{ //MOZE DO USUNIECIA
         setMail('');
         setPassword('');
+        
     }
 
     const loginUser = (e) =>{
@@ -35,7 +38,9 @@ const LoginForm = () => {
             setCurrentUser(res.data)
             localStorage.setItem("token",res.headers.authtoken)
             goToAfterSingIn()
-        });
+        }).catch(
+            setError(true)
+        );
         
         e.preventDefault();
         restartStates();
@@ -43,10 +48,12 @@ const LoginForm = () => {
 
     return(
     
-            <Card>
+            <Card style={{padding:'20px 20px 20px 20px'}}>
             <Grid container direction='column' alignItems="center" spacing={4}  >
             <Grid item>
                 <TextField 
+                color='secondary'
+                label='Email'
                 variant='outlined' 
                 placeholder='Adres e-mail'
                 type='email'
@@ -55,19 +62,27 @@ const LoginForm = () => {
             </Grid>
             <Grid item>
                 <TextField 
-                
+                color='secondary'
+                label='Hasło'
                 variant='outlined'
                  placeholder='Hasło' 
                  type='password' 
                  onChange={(e)=>setPassword(e.target.value)}>
                 </TextField>
             </Grid>
+            {error ?  
+                <Typography color='error'>
+                    Błędny email lub hasło
+                </Typography>
+
+             : ''}
+            
             <Grid item>
                 <Button color='secondary' variant='contained' onClick={(e)=>loginUser(e)} >Zaloguj</Button>
             </Grid>
             <Grid item>
                 <Typography>
-                    Nie masz konta? (Zarejestruj się tutaj) -link
+                    Nie masz konta? <Link to='/register' >Zarejestruj się tutaj</Link>
                 </Typography>
             </Grid>
             </Grid>
