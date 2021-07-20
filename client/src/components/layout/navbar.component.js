@@ -4,17 +4,16 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {Button, ButtonGroup, Grid} from '@material-ui/core/';
-import PersonIcon from '@material-ui/icons/Person';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Badge from '@material-ui/core/Badge'
 import {Link as MaterialLink} from '@material-ui/core';
 import '../../App.css';
-import { useUserAuth } from '../signing/authContext'
+import NavUserButton from './navUserButton';
 
 export default function Navbar() {
 
   const [cartItems, setCartItems] = useState(0)
-  const { currentUser } = useUserAuth()
+ 
   
   useEffect(()=>{
     let itemsInCart = JSON.parse(localStorage.getItem('cart')).length
@@ -32,10 +31,10 @@ export default function Navbar() {
           </Typography>
           <Grid container direction='row' justify='center'>
             <ButtonGroup color="primary" aria-label="text primary button group"> {/* className='navbar-link' */}
-            <Link to='shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Części</Button></MaterialLink></Link> 
-            <Link to='shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Odzież</Button></MaterialLink></Link> 
-            <Link to='shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Akcesoria</Button></MaterialLink></Link> 
-            <Link to='shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Promocje</Button></MaterialLink></Link> 
+            <Link to='/shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Części</Button></MaterialLink></Link> 
+            <Link to='/shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Odzież</Button></MaterialLink></Link> 
+            <Link to='/shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Akcesoria</Button></MaterialLink></Link> 
+            <Link to='/shop'><MaterialLink underline='none' color='secondary'> <Button color='primary'>Promocje</Button></MaterialLink></Link> 
             </ButtonGroup>
           </Grid>
           
@@ -44,11 +43,7 @@ export default function Navbar() {
            <Badge  badgeContent={cartItems} color='error'><ShoppingBasketIcon color='primary' /> </Badge>
           </Link>
           </Button>
-          {currentUser ?   <Link to='/dashboard'>
-         <Button><PersonIcon color='primary' /></Button>
-         </Link> :  <Link to='/login'>
-         <Button><PersonIcon color='primary' /></Button>
-         </Link> }
+          <NavUserButton></NavUserButton> {/* my comp */}
           
         </Toolbar>
       </AppBar>

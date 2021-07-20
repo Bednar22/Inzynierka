@@ -11,14 +11,14 @@ const {userRoleAuth} = require('./userRoleAuth')
 //ALL PATH START WITH: '/users/{...} ==> !!!
 
 //Gets user role by user id from token
-router.get('/user',verifyToken,userRoleAuth(process.env.ROLE_DEFAULT),async(req,res)=>{
+router.get('/user',userRoleAuth(process.env.ROLE_DEFAULT),async(req,res)=>{
     await User.findOne({_id: req.user._id})
     .then(user=>{res.json({userRole:user.role, userId:user._id})})
     .catch(err=>res.status(400).json("error. didnt find the user"))
 })
 
 //Gets whole user info
-router.get('/userInfo/:pies',verifyToken,async(req,res)=>{
+router.get('/userInfo',verifyToken,async(req,res)=>{
     console.log(req.params)
     await User.findOne({_id: req.user._id})
     .then(user=>{console.log(user)
@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
     const passCheck = await bcrypt.compare(req.body.password, user.password )
     if(!passCheck) return res.status(400).send('Niepoprawny email lub hasło'); 
 
-    const token = jwt.sign({_id: user._id}, process.env.TOKEN/* , {expiresIn:600} */);
+    const token = jwt.sign({_id: user._id, role:user.role}, process.env.TOKEN/* , {expiresIn:600} */);
     res.header('authtoken', token).json(user.role).send()
     //res.header({userRole:user.role, token: token})
     //{res.json({userRole:user.role, userId:user._id})}

@@ -35,15 +35,25 @@ const LoginForm = () => {
         }
 
         axios.post('/users/login', user).then(res=>{
-            setCurrentUser(res.data)
+            //setCurrentUser(res.data)
             localStorage.setItem("token",res.headers.authtoken)
-            goToAfterSingIn()
+            history.push("/")
         }).catch(
             setError(true)
         );
         
         e.preventDefault();
         restartStates();
+    }
+
+    const test = () => {
+        axios.get('/users/userInfo/', {
+            headers:{
+                "auth-token": localStorage.getItem('token'),
+                },
+        }).then(res=>{
+            console.log('UDALO SIE')
+        })
     }
 
     return(
@@ -86,7 +96,10 @@ const LoginForm = () => {
                 </Typography>
             </Grid>
             </Grid>
+            <Button onClick={test}>TEST</Button>
             </Card>
+
+           
 
     )
 

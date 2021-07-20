@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken');
 
     try {
         const verified = jwt.verify(token, process.env.TOKEN);
+        console.log(verified)
         req.user = verified;
         next();
     } catch (error) {

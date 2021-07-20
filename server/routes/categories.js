@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 require('dotenv/config');
-const {userRoleAuth} = require('./userRoleAuth')
+const {userRoleAuth2} = require('./userRoleAuth')
 const Category = require('../models/categories_model')
 const {verifyToken} = require('./verifyToken')
 
@@ -26,7 +26,7 @@ res.json(savedCategory);
 });
 
 //Get all categories (GET)
-router.get('/', async(req,res)=>{  
+router.get('/', verifyToken, async(req,res)=>{  
     await Category.find()
     .then(categories => res.json(categories))
     .catch(err => res.status(400).json("Error: " + err));

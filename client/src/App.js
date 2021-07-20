@@ -46,10 +46,10 @@ function App() {
               <Route path="/register" component={Register} />
               <Route path="/login" component={LoginForm} />
               <Route path='/cart' component={ShoppingCart} />
-              <Route exact path='/shop' component={Shop} />
               <Route path='/productupload' component={AddProduct} />
               <Route path='/category' component={AddCategory} />
               <Route path='/shop/item/:id' component={ShopItem} />
+              <Route path='/shop' component={Shop} />
               <Route path='/dashboard' component={Dashboard} />
               <Route exact path='/' component={Homepage} />
           </Switch>
