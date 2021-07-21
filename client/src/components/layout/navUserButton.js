@@ -1,48 +1,57 @@
-import React from 'react'
-import { useUserAuth } from '../signing/authContext'
+import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {Button} from '@material-ui/core/';
 import PersonIcon from '@material-ui/icons/Person';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import { isLogged } from '../signing/isLogged';
+import {useHistory} from 'react-router-dom'
 
 const NavUserButton = (props) => {
-    const { currentUser } = useUserAuth()
 
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [logged, setLogged] = useState(false)
+    const history = useHistory();
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    if(isLogged()===true){
+      setAnchorEl(event.currentTarget);
+    } else{
+      history.push('/login')
+    }
+    
   };
+
+  const logout = () => {
+    localStorage.removeItem('token')
+    history.push('/')
+  }
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
 
+
     return(
         <>
-        {currentUser ?  
             <>
-         <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}><PersonIcon color='primary' /></Button>
-         <Menu
-         id="simple-menu"
-         anchorEl={anchorEl}
-         keepMounted
-         open={Boolean(anchorEl)}
-         onClose={handleClose}
-       >   
-         <MenuItem onClick={handleClose}>Profil</MenuItem>
-         <MenuItem onClick={handleClose}>Zamówienia</MenuItem>
-         <MenuItem onClick={handleClose}>Ustawienia</MenuItem>
-         <MenuItem>Wyloguj</MenuItem>
-        </Menu>
-         </>
-         :  <Link to='/login'>
-         <Button><PersonIcon color='primary' /></Button>
-         </Link> }
+          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}><PersonIcon color='primary' /></Button>
+          <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          >   
+          <MenuItem onClick={handleClose}>Profil</MenuItem>
+          <MenuItem onClick={handleClose}>Zamówienia</MenuItem>
+          <MenuItem onClick={handleClose}>Ustawienia</MenuItem>
+          <MenuItem onClick={logout}>Wyloguj</MenuItem>
+          </Menu>
+          </>
+        
         </>
     )
 

@@ -10,6 +10,12 @@ const {userRoleAuth} = require('./userRoleAuth')
 
 //ALL PATH START WITH: '/users/{...} ==> !!!
 
+//Log check
+
+router.get('/logcheck', verifyToken, (req,res) => {
+    res.send(true)
+})
+
 //Gets user role by user id from token
 router.get('/user',userRoleAuth(process.env.ROLE_DEFAULT),async(req,res)=>{
     await User.findOne({_id: req.user._id})

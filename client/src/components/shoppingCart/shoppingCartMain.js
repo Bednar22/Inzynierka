@@ -8,7 +8,8 @@ import Button from '@material-ui/core/Button'
 const ShoppingCart = () => {
 
     const[products, setProducts] = useState([])
-
+    const[ammountArray, setAmmountArray] = ([])
+    
     const getProducts = () => {
         const productsIds = localStorage.getItem('cart')
         if(productsIds || productsIds===''){
@@ -38,6 +39,10 @@ const ShoppingCart = () => {
             setProducts(productsCopy)
             localStorage.setItem("cart", JSON.stringify(productsCopy))
         }   
+    }
+
+    const ammountCheck = () => {
+
     }
 
     useEffect(()=>{

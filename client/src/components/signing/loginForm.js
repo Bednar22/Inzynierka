@@ -47,7 +47,7 @@ const LoginForm = () => {
     }
 
     const test = () => {
-        axios.get('/users/userInfo/', {
+        axios.get('/users/userInfo', {
             headers:{
                 "auth-token": localStorage.getItem('token'),
                 },

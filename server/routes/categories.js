@@ -26,7 +26,7 @@ res.json(savedCategory);
 });
 
 //Get all categories (GET)
-router.get('/', verifyToken, async(req,res)=>{  
+router.get('/', async(req,res)=>{  
     await Category.find()
     .then(categories => res.json(categories))
     .catch(err => res.status(400).json("Error: " + err));

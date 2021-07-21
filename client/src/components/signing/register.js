@@ -72,24 +72,33 @@ const Register = () => {
     
     return(
         
-        <Grid container direction='column' alignItems="center"
-         spacing={4}  style={{border:'2px solid red'}}>
+        <Grid container justify='center' >
+        <Grid container direction='column' alignItems="center" sm={8} xs={8} 
+         spacing={4}  /* style={{border:'2px solid red'}} */>
            <Grid spacing={4} container item direction='row' 
            justify='center' sm={8} > {/* IMIE I NAZWISKO */}
-           <Grid item sm={4} xs={4} >
+           <Grid item sm={6} xs={6} >
             <TextField 
                 fullWidth
                 variant='outlined' 
-                placeholder='Imię'
+                label='Imię'
+                color='secondary'
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 type='text'
                 onChange={(e)=>setName(e.target.value)}>
             </TextField>
             </Grid>
-            <Grid item sm={4} xs={4}>
+            <Grid item sm={6} xs={6}>
             <TextField 
                 fullWidth
                 variant='outlined' 
-                placeholder='Nazwisko'
+                label='Nazwisko'
+                color='secondary'
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 type='text'
                 onChange={(e)=>setSurname(e.target.value)}>
             </TextField>
@@ -98,20 +107,28 @@ const Register = () => {
             
            <Grid spacing={4} container item direction='row'
             justify='center' sm={8} > {/* MAIL I TELEFON */}
-            <Grid item sm={4} xs={4}>
+            <Grid item sm={6} xs={6}>
             <TextField 
                 fullWidth
                 variant='outlined' 
-                placeholder='Adres e-mail'
+                label='E-mail'
+                color='secondary'
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 type='email'
                 onChange={(e)=>setEmail(e.target.value)}>
             </TextField>
             </Grid>
-            <Grid item sm={4} xs={4}>
+            <Grid item sm={6} xs={6}>
             <TextField 
                 fullWidth
                 variant='outlined' 
-                placeholder='Nr telefonu'
+                label='Numer telefonu'
+                color='secondary'
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 type='text'
                 >
             </TextField>
@@ -120,39 +137,50 @@ const Register = () => {
 
             <Grid spacing={4} container item direction='row'
              justify='center' sm={8} > {/* HASLA */}
-            <Grid item sm={4} xs={4}>
+            <Grid item sm={6} xs={6}>
             <TextField variant='outlined' 
                 fullWidth
-                placeholder='Hasło'
+                label='Hasło'
+                color='secondary'
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 type='password'
                 onChange={(e)=>setPassword(e.target.value)}>
                 </TextField>
             </Grid>
-            <Grid item sm={4} xs={4}>
+            <Grid item sm={6} xs={6}>
             <TextField variant='outlined' 
                 fullWidth
-                placeholder='Powtórz hasło'
+                label='Powtórz hasło'
+                color='secondary'
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 type='password'
                 onChange={(e)=>setPass2(e.target.value)}>
             </TextField>
             </Grid>
             </Grid>
 
-            <Grid spacing={2} container item direction='row' 
-            justify='center' sm={8} > {/* Ulica mieszkanie dom */}
+            <Grid  container item direction='row' 
+            justify='center' spacing={4} sm={8}  > {/* Ulica mieszkanie dom */}
             
-            <Grid item sm={3} xs={3}>
+            <Grid item sm={6} xs={6}>
             <TextField variant='outlined' 
                 fullWidth
-                placeholder='Ulica'
+                label='Ulica'
+                color='secondary'
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 type='text'
                 onChange={(e)=>setStreet(e.target.value)}>
             </TextField>
             </Grid>
-            <Grid item sm={2} xs={2}>
+            <Grid item sm={3} xs={3}>
             <TextField variant='outlined' 
                 fullWidth
-                placeholder='Numer domu'
                 type='text'
                 onChange={(e)=>setNrDomu(e.target.value)}
                 label='Numer domu'
@@ -162,7 +190,7 @@ const Register = () => {
                   }}>
             </TextField>
             </Grid>
-            <Grid item sm={3} xs={2}>
+            <Grid item xs={3} sm={3} >
             <TextField variant='outlined' 
                 fullWidth
                // placeholder='Numer mieszkania'
@@ -178,18 +206,26 @@ const Register = () => {
             </Grid>
             <Grid spacing={4} container item direction='row'
              justify='center' sm={8} > {/* MIASTO I KP */}
-             <Grid item sm={4} xs={4}>
+             <Grid item sm={6} xs={6}>
             <TextField variant='outlined' 
                 fullWidth
-                placeholder='Miasto'
+                label='Miasto'
+                color='secondary'
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 type='text'
                 onChange={(e)=>setCity(e.target.value)}>
             </TextField>
             </Grid>
-            <Grid item sm={4} xs={4}>
+            <Grid item sm={6} xs={6}>
             <TextField variant='outlined' 
                 fullWidth
-                placeholder='Kod pocztowy'
+                label='Kod pocztowy'
+                color='secondary'
+                InputLabelProps={{
+                    shrink: true,
+                  }}
                 type='text'
                 onChange={(e)=>setKodpocztowy(e.target.value)}>
             </TextField>
@@ -202,7 +238,7 @@ const Register = () => {
             
         </Grid>
         
-
+        </Grid>
     
     )
 }
