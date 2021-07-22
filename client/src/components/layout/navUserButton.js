@@ -7,12 +7,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { isLogged } from '../signing/isLogged';
 import {useHistory} from 'react-router-dom'
+import { useCart } from '../shoppingCart/cartContext';
 
 const NavUserButton = (props) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [logged, setLogged] = useState(false)
     const history = useHistory();
+    const {cart, setCart} = useCart()
 
   const handleClick = (event) => {
     if(isLogged()===true){

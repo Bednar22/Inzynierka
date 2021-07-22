@@ -16,9 +16,8 @@ router.get('/:id', async(req,res)=>{
 })
 
 router.get('/get/all', async(req,res)=>{
-    const productsIds = JSON.parse(req.query.productsIds)
+    const productsIds = req.query.productsIds 
     const productsInfo = [];
-    console.log(` IDKI TO : ${productsIds}`) 
     for(let i=0; i<productsIds.length; i++){
         await Product.findOne({_id: productsIds[i]}).then(product=>{productsInfo.push(product)})
             .catch(err=>res.status(400).json("error. didnt find the product"))

@@ -5,21 +5,25 @@ import Grid from '@material-ui/core/Grid'
 import SummaryCart from './summaryCart';
 import SingleOrder from './orderInCart';
 import Button from '@material-ui/core/Button'
+import { useCart } from './cartContext';
+
 const ShoppingCart = () => {
 
     const[products, setProducts] = useState([])
-    const[ammountArray, setAmmountArray] = ([])
+    const {cart, setCart} = useCart()
     
     const getProducts = () => {
-        const productsIds = localStorage.getItem('cart')
-        if(productsIds || productsIds===''){
-             console.log(productsIds)
+        
+        if(cart.length !== 0){
+            console.log('gettin products')
+            console.log(cart)
              axios.get('/product/get/all', {
                     params:{
-                        productsIds: productsIds
+                        productsIds: cart
                         
                     }
                 }).then(res=>{
+                    console.log('TO WRCA')
                     console.log(res.data)
                     setProducts(res.data)
                 })
@@ -33,21 +37,21 @@ const ShoppingCart = () => {
     //removing item from cart and updating local storage cart
     const removeFromCart = (itemId) =>{
         const productsCopy = [...products]
+        const cartCopy = [...cart]
         const indexToRemove = productsCopy.findIndex((obj)=>obj._id === itemId)
+        const indexToRemoveFromCart = cart.indexOf(itemId)
         if(indexToRemove > -1) { 
             productsCopy.splice(indexToRemove, 1)
             setProducts(productsCopy)
-            localStorage.setItem("cart", JSON.stringify(productsCopy))
+            cartCopy.splice(indexToRemoveFromCart, 1)
+            setCart(cartCopy)
+
         }   
-    }
-
-    const ammountCheck = () => {
-
     }
 
     useEffect(()=>{
         getProducts()
-    },[])
+    },[cart])
 
     return(
             <Grid container xs={12} sm={12} spacing={2}>

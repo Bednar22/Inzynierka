@@ -9,16 +9,11 @@ import Badge from '@material-ui/core/Badge'
 import {Link as MaterialLink} from '@material-ui/core';
 import '../../App.css';
 import NavUserButton from './navUserButton';
+import {useCart} from '../shoppingCart/cartContext'
 
 export default function Navbar() {
 
-  const [cartItems, setCartItems] = useState(0)
- 
-  
-  useEffect(()=>{
-    let itemsInCart = JSON.parse(localStorage.getItem('cart')).length
-    setCartItems(itemsInCart)
-  },[])
+  const {cartLen} = useCart(); // values from cartContext 
 
   return (
      <>
@@ -40,10 +35,10 @@ export default function Navbar() {
           
          <Button>
          <Link to='/cart'>
-           <Badge  badgeContent={cartItems} color='error'><ShoppingBasketIcon color='primary' /> </Badge>
+           <Badge  badgeContent={cartLen} color='error'><ShoppingBasketIcon color='primary' /> </Badge>
           </Link>
           </Button>
-          <NavUserButton></NavUserButton> {/* my comp */}
+          <NavUserButton></NavUserButton> {/* changes behovior, depends on loggin   */}
           
         </Toolbar>
       </AppBar>

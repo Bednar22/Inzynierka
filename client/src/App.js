@@ -15,7 +15,7 @@ import Shop from './components/shopItems/shop'
 import AddProduct from './components/addNewProduct';
 import AddCategory from './components/addCategory';
 import Order from './components/order/order'
-import { UserAuthProvider } from './components/signing/authContext'
+import { CartContextProvider } from './components/shoppingCart/cartContext'
 import ShopItem from './components/shopItems/shopItem';
 import Dashboard from './components/userDashboard/dashboard';
 
@@ -38,7 +38,7 @@ function App() {
     <>
     <ThemeProvider theme={theme}>
     <BrowserRouter>
-    <UserAuthProvider>
+    <CartContextProvider>
       <Navbar></Navbar>
       <Container /* maxWidth="lg" */>
           <Switch>
@@ -54,7 +54,7 @@ function App() {
               <Route exact path='/' component={Homepage} />
           </Switch>
       </Container>
-      </UserAuthProvider>
+      </CartContextProvider>
       <Footer></Footer> 
       </BrowserRouter>
     </ThemeProvider>
