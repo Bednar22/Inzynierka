@@ -18,6 +18,7 @@ import Order from './components/order/order'
 import { CartContextProvider } from './components/shoppingCart/cartContext'
 import ShopItem from './components/shopItems/shopItem';
 import Dashboard from './components/userDashboard/dashboard';
+import OrderDataForm from './components/shoppingCart/orderDataForm';
 
 //Themes, used to set color of application
 const theme = createMuiTheme({
@@ -51,6 +52,7 @@ function App() {
               <Route path='/shop/item/:id' component={ShopItem} />
               <Route path='/shop' component={Shop} />
               <Route path='/dashboard' component={Dashboard} />
+              <Route path='/checkout' component={OrderDataForm} />
               <Route exact path='/' component={Homepage} />
           </Switch>
       </Container>

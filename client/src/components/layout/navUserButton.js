@@ -27,6 +27,7 @@ const NavUserButton = (props) => {
 
   const logout = () => {
     localStorage.removeItem('token')
+    setAnchorEl(null);
     history.push('/')
   }
 

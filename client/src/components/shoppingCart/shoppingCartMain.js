@@ -6,11 +6,12 @@ import SummaryCart from './summaryCart';
 import SingleOrder from './orderInCart';
 import Button from '@material-ui/core/Button'
 import { useCart } from './cartContext';
-
+import { useHistory } from 'react-router';
 const ShoppingCart = () => {
 
     const[products, setProducts] = useState([])
     const {cart, setCart} = useCart()
+    const history = useHistory()
     
     const getProducts = () => {
         
@@ -76,8 +77,8 @@ const ShoppingCart = () => {
                 </Grid>
 
                 <Grid>
-                    <Button color='secondary' variant="contained">
-                        Zamawiam
+                    <Button color='secondary' variant="contained" onClick={()=>history.push('/checkout')}>
+                        Do kasy
                     </Button>
                 </Grid>
             </Grid>
