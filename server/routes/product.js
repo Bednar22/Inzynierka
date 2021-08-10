@@ -8,7 +8,7 @@ const {addProductValidation} = require('./productAdd.validation');
 
 //Gets product by id 
 router.get('/:id', async(req,res)=>{
-    console.log('haha')
+    //console.log('haha')
     console.log(req.params.id)    
     await Product.findOne({_id: req.params.id})
     .then(product=>{res.json(product)})
