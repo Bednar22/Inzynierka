@@ -1,9 +1,8 @@
 import React from 'react'
-import 'axios'
-import axios from 'axios'
+//import axios from 'axios'
 
 export const isLogged = () => {
-    // let logged = false;
+    
     const localToken = localStorage.getItem('token')
     // if(localToken){
     //         axios.get('/users/logcheck', {

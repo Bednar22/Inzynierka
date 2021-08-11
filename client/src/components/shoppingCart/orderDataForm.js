@@ -20,7 +20,7 @@ const OrderDataForm = () => {
     const [nr_domu,setNrDomu] = useState();
     const [nr_mieszkania,setNrMieszkania] = useState();
     const [kod_pocztowy, setKodpocztowy] = useState();
-    const [shipping, setShipping] = useState('');
+    const [shipment, setShipment] = useState('');
     const [payment, setPayment] = useState('')
     //help states to manage component
     const [summary, setSummary] = useState(false)
@@ -57,14 +57,14 @@ const OrderDataForm = () => {
         setSummary(!summary)
     }
 
-    const handleShipping = (e) => {
+    const handleShipment = (e) => {
         
         if(e === 'kurierpobranie'){
-            setShipping(e)
+            setShipment(e)
             setPayment('gotowka')
             setDisablePayment(true)
         } else{
-            setShipping(e)
+            setShipment(e)
             setDisablePayment(false)
             setDisbleGotowka(true)
         }
@@ -226,7 +226,7 @@ const OrderDataForm = () => {
         <Grid item container  sm={11} xs={11} style={{border:' 2px solid blue '}} >
             <FormControl component="fieldset">
                 <FormLabel required component="legend" color='secondary'>Sposób wysyłki:</FormLabel>
-                <RadioGroup aria-label="gender" name="gender1" value={shipping} onChange={(e)=>handleShipping(e.target.value)}>
+                <RadioGroup aria-label="gender" name="gender1" value={shipment} onChange={(e)=>handleShipment(e.target.value)}>
                 <FormControlLabel value="kurier" control={<Radio />} label="Kurier" />
                 <FormControlLabel value="paczkomat" control={<Radio />} label="Paczkomat" />
                 <FormControlLabel value="pocztapolska" control={<Radio />} label="Poczta Polska" />
@@ -261,7 +261,7 @@ const OrderDataForm = () => {
             <>
             <OrderSummary city={city} name={name} street={street} kod_pocztowy={kod_pocztowy} surname={surname}
             email={email} nr_domu={nr_domu} nr_mieszkania={nr_mieszkania}
-            shipping={shipping} payment={payment} handleSummary={handleSummary}></OrderSummary>
+            shipment={shipment} payment={payment} handleSummary={handleSummary}></OrderSummary>
             </>
         )
     }

@@ -6,8 +6,8 @@ const OrderSchema = mongoose.Schema({
     customer: Object,
     user_id: String, //for logged in --> then the user object CAN be empty (cause data will come from User collection)
     status: String,
-    deliveryType: String,
-    paymentType: String,
+    shipment: String,
+    payment: String,
     date: Date
 })
 

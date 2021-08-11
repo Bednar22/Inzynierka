@@ -63,6 +63,8 @@ const Register = () => {
              console.log(res.data);
              restartStates();
              goToAfterSingUp();
+         }).catch(err=>{
+             console.log(err)
          })
         
         e.preventDefault();

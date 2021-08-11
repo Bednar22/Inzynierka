@@ -12,9 +12,9 @@ import { useCart } from '../shoppingCart/cartContext';
 const NavUserButton = (props) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
-    const [logged, setLogged] = useState(false)
+    //const [logged, setLogged] = useState(false)
     const history = useHistory();
-    const {cart, setCart} = useCart()
+    //const {cart, setCart} = useCart()
 
   const handleClick = (event) => {
     if(isLogged()===true){
@@ -31,8 +31,9 @@ const NavUserButton = (props) => {
     history.push('/')
   }
 
-  const handleClose = () => {
+  const handleClose = (pageLink) => {
     setAnchorEl(null);
+    history.push(pageLink)
   };
 
 
@@ -48,9 +49,9 @@ const NavUserButton = (props) => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
           >   
-          <MenuItem onClick={handleClose}>Profil</MenuItem>
-          <MenuItem onClick={handleClose}>Zamówienia</MenuItem>
-          <MenuItem onClick={handleClose}>Ustawienia</MenuItem>
+          <MenuItem onClick={()=>handleClose('/dashboard')}>Profil</MenuItem>
+          <MenuItem onClick={()=>handleClose('/orders')}>Zamówienia</MenuItem>
+          <MenuItem onClick={()=>handleClose('/settings')}>Ustawienia</MenuItem>
           <MenuItem onClick={logout}>Wyloguj</MenuItem>
           </Menu>
           </>

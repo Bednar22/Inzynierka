@@ -12,14 +12,16 @@ import Register from './components/signing/register'
 import Footer from './components/layout/footer'
 import ShoppingCart from './components/shoppingCart/shoppingCartMain'
 import Shop from './components/shopItems/shop'
-import AddProduct from './components/addNewProduct';
-import AddCategory from './components/addCategory';
+import AddProduct from './components/managmentPanel/addNewProduct';
+import AddCategory from './components/managmentPanel/addCategory';
 import Order from './components/order/order'
 import { CartContextProvider } from './components/shoppingCart/cartContext'
 import ShopItem from './components/shopItems/shopItem';
 import Dashboard from './components/userDashboard/dashboard';
 import OrderDataForm from './components/shoppingCart/orderDataForm';
-
+import OrderConfirmation from './components/shoppingCart/confirmation';
+import PrivateRoute from './components/utils/privateRoute';
+import AdminRoute from './components/utils/adminRoute';
 //Themes, used to set color of application
 const theme = createMuiTheme({
    palette: {
@@ -51,7 +53,8 @@ function App() {
               <Route path='/category' component={AddCategory} />
               <Route path='/shop/item/:id' component={ShopItem} />
               <Route path='/shop' component={Shop} />
-              <Route path='/dashboard' component={Dashboard} />
+              <PrivateRoute path='/dashboard' component={Dashboard} />
+              <Route path='/checkout/confirmation/:id' component={OrderConfirmation} />
               <Route path='/checkout' component={OrderDataForm} />
               <Route exact path='/' component={Homepage} />
           </Switch>

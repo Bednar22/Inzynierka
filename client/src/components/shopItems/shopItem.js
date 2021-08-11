@@ -7,7 +7,7 @@ import { useCart } from '../shoppingCart/cartContext'
 const ShopItem = (props) => {
 
     const [productInfo, setProductInfo] = useState({})
-    const {cart, setCart} = useCart()
+    const {cart, setCar, addToCart} = useCart()
 
     const getItem = async () => {
             await axios.get(`/product/${props.match.params.id}`).then(res=>{
@@ -16,21 +16,11 @@ const ShopItem = (props) => {
             })
     }
 
-//     const addToShoppingCart = () => {
-//             let shoppingCart = localStorage.getItem('cart')
-//             if(shoppingCart){
-//                 let shoppingCartJSON = JSON.parse(shoppingCart)
-//                 shoppingCartJSON.push(productInfo._id);
-//                 localStorage.setItem("cart", JSON.stringify(shoppingCartJSON))
-//             } else {
-//                 const shoppingCartArray = [productInfo._id]
-//                 localStorage.setItem("cart", JSON.stringify(shoppingCartArray))
-//     }
-// }
-
-const addToShoppingCart = () => {
-               
-    setCart(prevCart => [...prevCart, productInfo._id])                    
+    const addToShoppingCart = () => {
+        //addToCartFunctions(productInfo._id)
+        //addToLocalCart(productInfo._id)
+        //addToCart(productInfo._id)         
+    //setCart(prevCart => [...prevCart, productInfo._id])                    
     }
 
 
@@ -41,7 +31,7 @@ const addToShoppingCart = () => {
     return(
         <>
         <Grid>
-            <Button onClick={addToShoppingCart} variant='contained' color='secondary'>Dodaj do koszyka</Button>
+            <Button onClick={()=>addToCart(productInfo._id)} variant='contained' color='secondary'>Dodaj do koszyka</Button>
         </Grid> 
         </>
     )

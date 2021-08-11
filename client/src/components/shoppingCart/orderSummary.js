@@ -1,16 +1,46 @@
 import React, {useEffect, useState} from 'react' 
-import { Paper, Grid, Typography, Button, Box } from '@material-ui/core'
+import { Paper, Grid, Typography, Button } from '@material-ui/core'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Divider from '@material-ui/core/Divider';
 import { useCart } from './cartContext';
 import axios from 'axios'
 
 const OrderSummary = (props) => {
 
-    const {cart} = useCart()
+    const {cart, localCart} = useCart()
+
+    useEffect(()=>{
+        console.log(localCart)
+    },[])
+
+    const submitOrder = () => {
+
+        const order = {
+            customer: {
+                name: props.name,
+                surname: props.surname,
+                city: props.city,
+                street: props.street,
+                kod_pocztowy: props.kod_pocztowy,
+                nr_domu: props.nr_domu,
+                nr_mieszkania:props.nr_mieszkania
+
+            },
+            shipment: props.shipment,
+            payment: props.payment,
+            products: localCart
+        }
+
+        axios.post('/order/add', order)
+        .then(res=>{
+            console.log(`Wszystko cacy`)
+            console.log(res.data)
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
 
     return(
         <>
@@ -49,7 +79,7 @@ const OrderSummary = (props) => {
 
                     <Grid item container direction='column'  sm={4} xs={4}>
                         <Grid><Typography> WYSYŁKA </Typography></Grid>
-                        <Grid><Typography> {props.shipping} </Typography></Grid>
+                        <Grid><Typography> {props.shipment} </Typography></Grid>
                     </Grid>
 
                     <Grid item container direction='column'  sm={4} xs={4}>
@@ -66,7 +96,7 @@ const OrderSummary = (props) => {
                 </Grid>
 
                 <Grid item>
-                <Button color='secondary' variant='contained'>ZAMAWIAM I PŁACĘ</Button>
+                <Button color='secondary' variant='contained' onClick={()=>submitOrder()}>ZAMAWIAM I PŁACĘ</Button>
                 </Grid>
             </Grid>
             </Grid> {/* EoG main grid */}
