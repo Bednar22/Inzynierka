@@ -64,34 +64,30 @@ const Order = () => {
         getUserInfo()
     }, [])
     
-    const addOrder = (e) => {
+    // const addOrder = (e) => {
 
-        const user = {
-            email: email,
-            name: name,
-            surname: surname,
-            city: city,
-            street:street,
-            nr_domu: nr_domu,
-            nr_mieszkania: nr_mieszkania,
-            kod_pocztowy: kod_pocztowy
-        };
+    //     const user = {
+    //         email: email,
+    //         name: name,
+    //         surname: surname,
+    //         city: city,
+    //         street:street,
+    //         nr_domu: nr_domu,
+    //         nr_mieszkania: nr_mieszkania,
+    //         kod_pocztowy: kod_pocztowy
+    //     };
         
-        axios.post('/order/add', user)
-        .then(res=>{
-             console.log(res.data);
-             restartStates();
-             history.push('/')
-         })
+    //     axios.post('/order/add', user)
+    //     .then(res=>{
+    //          console.log(res.data);
+    //          restartStates();
+    //          history.push('/')
+    //      })
         
-        e.preventDefault();
+    //     e.preventDefault();
         
-    }
+    // }
 
-    const goToSummary = () => {
-
-
-    }
     
     return(
         
@@ -233,7 +229,7 @@ const Order = () => {
             </FormControl>
             </Grid>
             <Grid item>
-                <Button variant='outlined' onClick={goToSummary}>Podsumowanie</Button>
+                <Button variant='outlined'>Podsumowanie</Button>
             </Grid>
         </Grid> /* koneic głownego kontenera */
         

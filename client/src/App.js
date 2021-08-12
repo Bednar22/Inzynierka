@@ -22,6 +22,7 @@ import OrderDataForm from './components/shoppingCart/orderDataForm';
 import OrderConfirmation from './components/shoppingCart/confirmation';
 import PrivateRoute from './components/utils/privateRoute';
 import AdminRoute from './components/utils/adminRoute';
+import EditUser from './components/userDashboard/editUser';
 //Themes, used to set color of application
 const theme = createMuiTheme({
    palette: {
@@ -53,8 +54,9 @@ function App() {
               <Route path='/category' component={AddCategory} />
               <Route path='/shop/item/:id' component={ShopItem} />
               <Route path='/shop' component={Shop} />
-              <PrivateRoute path='/dashboard' component={Dashboard} />
+              <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <Route path='/checkout/confirmation/:id' component={OrderConfirmation} />
+              <PrivateRoute path='/dashboard/edit' component={EditUser} />
               <Route path='/checkout' component={OrderDataForm} />
               <Route exact path='/' component={Homepage} />
           </Switch>

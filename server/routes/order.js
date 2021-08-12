@@ -30,7 +30,8 @@ router.post('/add', async (req, res)=>{
         status:'new',
         shipment:req.body.shipment,
         payment:req.body.payment,
-        date: new Date()   
+        date: new Date(),
+        user_id: req.body.user_id   
     })
     console.log('TO JEST ORDER')
     console.log(order);
@@ -52,7 +53,7 @@ router.post('/add', async (req, res)=>{
 })
 
 //Gets orders from one user
-router.get('/',verifyToken,async(req,res)=>{
+router.get('/usersorders',verifyToken,async(req,res)=>{
     await Order.find({user_id: req.user._id})
     .then(orders=>{console.log(orders)
         res.json(orders)})

@@ -2,17 +2,11 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {TextField, Grid, Button, Typography} from '@material-ui/core'
 import {useHistory} from 'react-router-dom'
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import OrderSummary from './orderSummary';
 
-const OrderDataForm = () => {
+const EditUser = () => {
 
-    //user data states
     const [email, setEmail] = useState('');
+    const [password,setPassword] = useState('');
     const [name,setName] = useState('');
     const [surname,setSurname] = useState('');
     const [city,setCity] = useState('');
@@ -20,14 +14,8 @@ const OrderDataForm = () => {
     const [nr_domu,setNrDomu] = useState();
     const [nr_mieszkania,setNrMieszkania] = useState();
     const [kod_pocztowy, setKodpocztowy] = useState();
-    const [shipment, setShipment] = useState('');
-    const [payment, setPayment] = useState('')
-    const [userID, setUserID] = useState('')
-    //help states to manage component
-    const [summary, setSummary] = useState(false)
-    const [disablePayment, setDisablePayment] = useState(false)
-    const [disableGotowka, setDisbleGotowka] = useState(false)
-
+    const [readOnly, setReadOnly] = useState(true)
+    
     const setDefValues = (user) => {
         setEmail(user.email)
         setName(user.name)
@@ -37,7 +25,6 @@ const OrderDataForm = () => {
         setNrDomu(user.nr_domu)
         setNrMieszkania(user.nr_mieszkania)
         setKodpocztowy(user.kod_pocztowy)
-        setUserID(user._id)
     }
 
     useEffect(()=>{
@@ -55,35 +42,18 @@ const OrderDataForm = () => {
         
     },[])
 
-    const handleSummary = () => {
-        setSummary(!summary)
+    const submitChanges = () => {
+        setReadOnly(true)
     }
 
-    const handleShipment = (e) => {
-        
-        if(e === 'kurierpobranie'){
-            setShipment(e)
-            setPayment('gotowka')
-            setDisablePayment(true)
-        } else{
-            setShipment(e)
-            setDisablePayment(false)
-            setDisbleGotowka(true)
-        }
-        
-    }
-
-
-    if(summary===false){
     return(
         <>
-        <Grid container direction='column' sm={12} alignItems='center'>
-        <Grid container direction='column' alignItems='center' 
-        justify='space-around' spacing={4} xs={6} sm={6} style={{border:'2px solid red'}}>
+        <Grid container direction='column' alignItems='flex-start' 
+        justify='space-around' spacing={4} xs={10} sm={10} >
         
-        <Grid container direction='column' alignItems="center"  sm={12} xs={12} 
-         spacing={4}  style={{border:'2px solid green'}}  >
-        <Grid item > <Typography>DANE</Typography></Grid>
+        <Grid container direction='column' alignItems="flex-start"  sm={12} xs={12} 
+         spacing={4}    >
+        <Grid item alignContent='flex-start' > <Typography>DANE:</Typography></Grid>
            <Grid spacing={4} container item direction='row' 
             sm={12} justify='space-evenly' > {/* IMIE I NAZWISKO */}
            <Grid item sm={6} xs={6} >
@@ -93,7 +63,10 @@ const OrderDataForm = () => {
                 variant='outlined' 
                 label='Imię'
                 color='secondary'
-                InputLabelProps={{
+                InputProps={{
+                    readOnly: readOnly,
+                  }}
+                InputLa belProps={{
                     shrink: true,
                   }}
                 type='text'
@@ -107,6 +80,9 @@ const OrderDataForm = () => {
                 variant='outlined' 
                 label='Nazwisko'
                 color='secondary'
+                InputProps={{
+                    readOnly: readOnly,
+                  }}
                 InputLabelProps={{
                     shrink: true,
                   }}
@@ -125,6 +101,9 @@ const OrderDataForm = () => {
                 variant='outlined' 
                 label='E-mail'
                 color='secondary'
+                InputProps={{
+                    readOnly: readOnly,
+                  }}
                 InputLabelProps={{
                     shrink: true,
                   }}
@@ -139,6 +118,9 @@ const OrderDataForm = () => {
                 variant='outlined' 
                 label='Numer telefonu'
                 color='secondary'
+                InputProps={{
+                    readOnly: readOnly,
+                  }}
                 InputLabelProps={{
                     shrink: true,
                   }}
@@ -157,6 +139,9 @@ const OrderDataForm = () => {
                 fullWidth
                 label='Ulica'
                 color='secondary'
+                InputProps={{
+                    readOnly: readOnly,
+                  }}
                 InputLabelProps={{
                     shrink: true,
                   }}
@@ -172,6 +157,9 @@ const OrderDataForm = () => {
                 onChange={(e)=>setNrDomu(e.target.value)}
                 label='Numer domu'
                 color='secondary'
+                InputProps={{
+                    readOnly: readOnly,
+                  }}
                 InputLabelProps={{
                     shrink: true,
                   }}>
@@ -184,6 +172,9 @@ const OrderDataForm = () => {
                 type='text'
                 label='Numer mieszkania'
                 color='secondary'
+                InputProps={{
+                    readOnly: readOnly,
+                  }}
                 InputLabelProps={{
                     shrink: true,
                   }}
@@ -199,6 +190,9 @@ const OrderDataForm = () => {
                 fullWidth
                 label='Miasto'
                 color='secondary'
+                InputProps={{
+                    readOnly: readOnly,
+                  }}
                 InputLabelProps={{
                     shrink: true,
                   }}
@@ -212,6 +206,9 @@ const OrderDataForm = () => {
                 fullWidth
                 label='Kod pocztowy'
                 color='secondary'
+                InputProps={{
+                    readOnly: readOnly,
+                  }}
                 InputLabelProps={{
                     shrink: true,
                   }}
@@ -221,52 +218,20 @@ const OrderDataForm = () => {
             </Grid>
             </Grid> {/* MIASTO I KP */}
             
-           
-        </Grid> {/* EoG personal data */}
-        
-        <Grid item><Typography>WYSYŁKA</Typography></Grid>
-        <Grid item container  sm={11} xs={11} style={{border:' 2px solid blue '}} >
-            <FormControl component="fieldset">
-                <FormLabel required component="legend" color='secondary'>Sposób wysyłki:</FormLabel>
-                <RadioGroup aria-label="gender" name="gender1" value={shipment} onChange={(e)=>handleShipment(e.target.value)}>
-                <FormControlLabel value="kurier" control={<Radio />} label="Kurier" />
-                <FormControlLabel value="paczkomat" control={<Radio />} label="Paczkomat" />
-                <FormControlLabel value="pocztapolska" control={<Radio />} label="Poczta Polska" />
-                <FormControlLabel value="kurierpobranie" control={<Radio />} label="Kurier pobranie" />
-                </RadioGroup>
-            </FormControl>
-        </Grid> {/* EoG shipping grid */}
-
-        <Grid item><Typography>PŁATNOŚĆ</Typography></Grid>
-        <Grid item container  sm={11} xs={11} style={{border:' 2px solid blue '}} >
-            <FormControl component="fieldset">
-                <FormLabel required component="label" color='secondary'>Sposób płatności:</FormLabel>
-                <RadioGroup aria-label="payment" name="payment1" value={payment} onChange={(e)=>setPayment(e.target.value)}>
-                <FormControlLabel value="kurierpobranie" disabled={disablePayment} control={<Radio />} label="Karta" />
-                <FormControlLabel value="paczkomat" disabled={disablePayment} control={<Radio />} label="Przelew tradycyjny" />
-                <FormControlLabel value="gotowka" disabled={disableGotowka} control={<Radio />} label="Gotówka przy odbiorze" />
-                </RadioGroup>
-            </FormControl>
-        </Grid> {/* EoG payment grid */}
-        
+            <Grid container item justify='space-between' alignItems='flex-start'>
         <Grid item>
-            <Button onClick={handleSummary} variant='contained' color='secondary'>
-                Podsumowanie
-            </Button>
+            <Button onClick={()=>setReadOnly(false)} variant='contained' color='secondary'>ZMIEŃ</Button>
         </Grid>
+        <Grid item>
+            <Button onClick={()=>submitChanges()} variant='contained' color='secondary'>ZATWIERDŹ ZMIANY</Button>
+        </Grid>
+        </Grid>
+
+        </Grid> {/* EoG personal data */}
+       
         </Grid> {/* EoG main grid */}
-        </Grid> {/* EoG pojemnik */}
         </>
     )
-    } else{
-        return(
-            <>
-            <OrderSummary city={city} name={name} street={street} kod_pocztowy={kod_pocztowy} surname={surname}
-            email={email} nr_domu={nr_domu} nr_mieszkania={nr_mieszkania}
-            shipment={shipment} payment={payment} handleSummary={handleSummary} userID={userID}></OrderSummary>
-            </>
-        )
-    }
 }
 
-export default OrderDataForm;
+export default EditUser;

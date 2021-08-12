@@ -9,13 +9,29 @@ import axios from 'axios'
 
 const OrderSummary = (props) => {
 
-    const {cart, localCart} = useCart()
+    const {cart} = useCart()
 
-    useEffect(()=>{
-        console.log(localCart)
-    },[])
+    // useEffect(()=>{
+    //     console.log(cart)
+
+        
+    // },[])
 
     const submitOrder = () => {
+
+        let productsArray = []
+
+        cart.forEach(element => {
+            const product = {
+                name: element.name,
+                price: element.price,
+                _id: element._id,
+                quantity: 1
+            }
+            productsArray.push(product)
+        });
+        
+
 
         const order = {
             customer: {
@@ -30,7 +46,8 @@ const OrderSummary = (props) => {
             },
             shipment: props.shipment,
             payment: props.payment,
-            products: localCart
+            products: productsArray,
+            user_id: props.userID
         }
 
         axios.post('/order/add', order)
