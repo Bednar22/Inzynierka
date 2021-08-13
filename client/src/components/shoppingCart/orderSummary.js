@@ -6,32 +6,32 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { useCart } from './cartContext';
 import axios from 'axios'
+import { useHistory } from 'react-router';
 
 const OrderSummary = (props) => {
 
-    const {cart} = useCart()
-
-    // useEffect(()=>{
-    //     console.log(cart)
-
-        
-    // },[])
+    const {cart,clearCart} = useCart()
+    const history = useHistory()
 
     const submitOrder = () => {
 
         let productsArray = []
-
+        let productsValue = 0;
         cart.forEach(element => {
             const product = {
                 name: element.name,
                 price: element.price,
                 _id: element._id,
-                quantity: 1
+                quantity: 1 //NEED CHANGE
             }
+            productsValue+=element.price*1; //change to quantity later!!!
             productsArray.push(product)
         });
         
-
+        const value= {
+            productsValue: productsValue,
+            shipmentValue: 10
+        }
 
         const order = {
             customer: {
@@ -47,13 +47,15 @@ const OrderSummary = (props) => {
             shipment: props.shipment,
             payment: props.payment,
             products: productsArray,
-            user_id: props.userID
+            user_id: props.userID,
+            value:value
         }
 
         axios.post('/order/add', order)
         .then(res=>{
-            console.log(`Wszystko cacy`)
-            console.log(res.data)
+            clearCart()
+            history.push(`/checkout/confirmation/${res.data._id}`)
+            
         }).catch(err=>{
             console.log(err)
         })

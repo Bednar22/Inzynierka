@@ -46,6 +46,11 @@ export function CartContextProvider({children}){
             })
     }
 
+    const clearCart = () => {
+        setLocalCart([])
+        setCart([])
+    }
+
     useEffect(()=>{
         if(localStorage.getItem('cart')){
             getInitialCart()
@@ -67,6 +72,7 @@ export function CartContextProvider({children}){
         cartLen,
         addToCart,
         addToLocalCart,
+        clearCart
     }
 
     return(

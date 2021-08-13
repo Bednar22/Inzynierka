@@ -16,13 +16,6 @@ const ShopItem = (props) => {
             })
     }
 
-    const addToShoppingCart = () => {
-        //addToCartFunctions(productInfo._id)
-        //addToLocalCart(productInfo._id)
-        //addToCart(productInfo._id)         
-    //setCart(prevCart => [...prevCart, productInfo._id])                    
-    }
-
 
     useEffect(()=>{
         getItem();

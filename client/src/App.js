@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-
+import './App.css';
 //material-ui
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 import { Container } from '@material-ui/core';
@@ -44,7 +44,7 @@ function App() {
     <BrowserRouter>
     <CartContextProvider>
       <Navbar></Navbar>
-      <Container /* maxWidth="lg" */>
+      <Container maxWidth='lg' className={'main-container'}>
           <Switch>
               <Route path="/order" component={Order} />
               <Route path="/register" component={Register} />

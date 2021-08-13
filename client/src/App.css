@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.main-container {
+  min-height: 100vh;
+}
+
 .bord {
   border: 2px solid green;
 }

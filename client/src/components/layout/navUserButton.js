@@ -50,8 +50,8 @@ const NavUserButton = (props) => {
           onClose={handleClose}
           >   
           <MenuItem onClick={()=>handleClose('/dashboard')}>Profil</MenuItem>
-          <MenuItem onClick={()=>handleClose('/orders')}>Zamówienia</MenuItem>
-          <MenuItem onClick={()=>handleClose('/settings')}>Ustawienia</MenuItem>
+          {/* <MenuItem onClick={()=>handleClose('/orders')}>Zamówienia</MenuItem>
+          <MenuItem onClick={()=>handleClose('/settings')}>Ustawienia</MenuItem> */}
           <MenuItem onClick={logout}>Wyloguj</MenuItem>
           </Menu>
           </>

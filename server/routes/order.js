@@ -31,7 +31,8 @@ router.post('/add', async (req, res)=>{
         shipment:req.body.shipment,
         payment:req.body.payment,
         date: new Date(),
-        user_id: req.body.user_id   
+        user_id: req.body.user_id,
+        value: req.body.value   
     })
     console.log('TO JEST ORDER')
     console.log(order);

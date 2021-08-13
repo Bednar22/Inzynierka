@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import SingleUserOrder from './singleUserOrder'
+import Grid from '@material-ui/core/Grid'
 const UsersOrders = () => {
 
     const [orders, setOrders] = useState([])
@@ -24,11 +25,14 @@ const UsersOrders = () => {
 
     return(
         <>
+        <Grid item sm={10} xs={10} >
             {orders.map(item=>{
                 return(
-                    <SingleUserOrder id={item._id} products={item.products} shipent={item.shipment} status={item.status} />
+                    <SingleUserOrder orderDate={item.date} id={item._id} products={item.products} 
+                    shipment={item.shipment} status={item.status} value={item.value} />
                 )
             })}
+        </Grid>
         </>
     )
 }
