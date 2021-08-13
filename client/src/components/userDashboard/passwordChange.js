@@ -1,14 +1,11 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 
 const PasswordChange = () => {
-    
-    return(
+    return (
         <>
-            <h1>
-                PASSOWRD
-            </h1>
+            <h1>PASSOWRD</h1>
         </>
-    )
-}
+    );
+};
 
 export default PasswordChange;

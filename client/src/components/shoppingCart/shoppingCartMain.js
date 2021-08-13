@@ -1,62 +1,59 @@
-import axios from 'axios'
-import React, {useState, useEffect} from 'react'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import List from '@material-ui/core/List';
-import Grid from '@material-ui/core/Grid'
+import Grid from '@material-ui/core/Grid';
 import SummaryCart from './smallCartSum';
 import SingleOrder from './orderInCart';
-import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button';
 import { useCart } from './cartContext';
 import { useHistory } from 'react-router';
 const ShoppingCart = () => {
-
-    const {cart, setCart} = useCart()
-    const history = useHistory()
+    const { cart, setCart } = useCart();
+    const history = useHistory();
 
     //removing item from cart and updating local storage cart
-    const removeFromCart = (itemId) =>{
-        const cartCopy = [...cart]
-        const localCartCopy = JSON.parse(localStorage.getItem('cart'))
-        const indexToRemove = cartCopy.findIndex((obj)=>obj._id === itemId)
-        const indexToRemoveFromCart = localCartCopy.indexOf(itemId)
-        if(indexToRemove > -1) { 
-            cartCopy.splice(indexToRemove, 1)
-            setCart(cartCopy)
-            localCartCopy.splice(indexToRemoveFromCart, 1)
-            localStorage.setItem('cart', JSON.stringify(localCartCopy))
+    const removeFromCart = (itemId) => {
+        const cartCopy = [...cart];
+        const localCartCopy = JSON.parse(localStorage.getItem('cart'));
+        const indexToRemove = cartCopy.findIndex((obj) => obj._id === itemId);
+        const indexToRemoveFromCart = localCartCopy.indexOf(itemId);
+        if (indexToRemove > -1) {
+            cartCopy.splice(indexToRemove, 1);
+            setCart(cartCopy);
+            localCartCopy.splice(indexToRemoveFromCart, 1);
+            localStorage.setItem('cart', JSON.stringify(localCartCopy));
+        }
+    };
 
-        }   
-    }
-
-    return(
-            <Grid container xs={12} sm={12} spacing={2}>
-                <Grid container item sm={8} xs={8} direction="column" >
-                
-                    <List>{/* list grid */}
-                        {cart.map((item)=>{
-                            return(
-                                
-                                <Grid item xs={12} sm={12} >
-                                    <SingleOrder _id={item.id} name={item.name} 
-                                    removeFromCart={()=>removeFromCart(item._id)} />
-                                    
-                                </Grid>
-                            )
-                        })}
-                    </List>
-                </Grid> {/* EOF list grid */}
-            
-                <Grid item sm={4} xs={4}>    
-                    <SummaryCart items={cart}></SummaryCart>
-                </Grid>
-
-                <Grid>
-                    <Button color='secondary' variant="contained" onClick={()=>history.push('/checkout')}>
-                        Do kasy
-                    </Button>
-                </Grid>
+    return (
+        <Grid container xs={12} sm={12} spacing={2}>
+            <Grid container item sm={8} xs={8} direction='column'>
+                <List>
+                    {/* list grid */}
+                    {cart.map((item) => {
+                        return (
+                            <Grid item xs={12} sm={12}>
+                                <SingleOrder
+                                    _id={item.id}
+                                    name={item.name}
+                                    removeFromCart={() => removeFromCart(item._id)}
+                                />
+                            </Grid>
+                        );
+                    })}
+                </List>
+            </Grid>{' '}
+            {/* EOF list grid */}
+            <Grid item sm={4} xs={4}>
+                <SummaryCart items={cart}></SummaryCart>
             </Grid>
-        
-    )
-}
+            <Grid>
+                <Button color='secondary' variant='contained' onClick={() => history.push('/checkout')}>
+                    Do kasy
+                </Button>
+            </Grid>
+        </Grid>
+    );
+};
 
 export default ShoppingCart;

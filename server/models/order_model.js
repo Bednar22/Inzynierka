@@ -9,7 +9,7 @@ const OrderSchema = mongoose.Schema({
     shipment: String,
     payment: String,
     date: Date,
-    value: Object
-})
+    value: Object,
+});
 
 module.exports = mongoose.model('Order', OrderSchema);

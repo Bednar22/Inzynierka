@@ -1,23 +1,18 @@
-import React, {useState, useContext} from 'react'
+import React, { useState, useContext } from 'react';
 
-const FilterContext = React.createContext()
+const FilterContext = React.createContext();
 
 export function useFilterContext() {
-    return useContext(FilterContext)
+    return useContext(FilterContext);
 }
 
-export function FilterContextProvider({children}){
-
-    const [currentCategory, setCurrentCategory ] = useState('')
+export function FilterContextProvider({ children }) {
+    const [currentCategory, setCurrentCategory] = useState('');
 
     const value = {
-        currentCategory, setCurrentCategory
-    }
+        currentCategory,
+        setCurrentCategory,
+    };
 
-    return(
-            <FilterContext.Provider value={value}>
-                {children}
-            </FilterContext.Provider>
-    )
-
+    return <FilterContext.Provider value={value}>{children}</FilterContext.Provider>;
 }

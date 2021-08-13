@@ -1,40 +1,40 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .main-container {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 .bord {
-  border: 2px solid green;
+    border: 2px solid green;
 }
 
 .navbar-link {
-  text-decoration: "none";
+    text-decoration: 'none';
 }
 
 .navbar {
-  margin-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 .but-page:active {
-  box-shadow: "none";
+    box-shadow: 'none';
 }
 
 .but-page:hover {
-  box-shadow: "none";
+    box-shadow: 'none';
 }
 
 .footer {
-  height: 200px;
-  width: max-content;
-  background-color: gray;
-  margin-bottom: 0px;
-  margin-top: 50px;
+    height: 200px;
+    width: max-content;
+    background-color: gray;
+    margin-bottom: 0px;
+    margin-top: 50px;
 }
 
 .login-form {
-  margin-right: auto;
-  margin-right: auto;
+    margin-right: auto;
+    margin-right: auto;
 }

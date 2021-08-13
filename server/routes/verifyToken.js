@@ -1,17 +1,15 @@
 const jwt = require('jsonwebtoken');
 
-
 //Authorization function(middleware)to identify if user is loggedin
-//passes req.user as object ===> {_id:{here id}} tht can be used 
+//passes req.user as object ===> {_id:{here id}} tht can be used
 
-    function verifyToken(req, res, next) {
-
+function verifyToken(req, res, next) {
     const token = req.header('auth-token');
-    if(!token) return res.status(401).send('No access'); 
+    if (!token) return res.status(401).send('No access');
 
     try {
         const verified = jwt.verify(token, process.env.TOKEN);
-        console.log(verified)
+        console.log(verified);
         req.user = verified;
         next();
     } catch (error) {
@@ -20,5 +18,5 @@ const jwt = require('jsonwebtoken');
 }
 
 module.exports = {
-    verifyToken
-}
+    verifyToken,
+};

@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-
-
 const UserSchema = mongoose.Schema({
     email: String,
     password: String,
@@ -13,8 +11,7 @@ const UserSchema = mongoose.Schema({
     nr_mieszkania: Number,
     kod_pocztowy: Number,
     zamowienia: Array, //moze nie potrzebne?
-    role: String
-
-})
+    role: String,
+});
 
 module.exports = mongoose.model('User', UserSchema);

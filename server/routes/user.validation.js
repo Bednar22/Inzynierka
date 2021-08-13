@@ -3,17 +3,14 @@ const Joi = require('@hapi/joi');
 //VALIDATIONS
 
 const loginValidation = (bodyRequest) => {
-
     const loginSchema = Joi.object({
         email: Joi.string().required().email(),
         password: Joi.string().min(6).required(),
     });
-    return loginSchema.validate(bodyRequest); 
-    }
-    
+    return loginSchema.validate(bodyRequest);
+};
 
 function registerValidation(bodyRequest) {
-
     const registerSchema = Joi.object({
         email: Joi.string().required().email(),
         password: Joi.string().min(6).required(),
@@ -23,7 +20,7 @@ function registerValidation(bodyRequest) {
         street: Joi.string().required(),
         nr_domu: Joi.number().required(),
         nr_mieszkania: Joi.number(),
-        kod_pocztowy: Joi.number().required()
+        kod_pocztowy: Joi.number().required(),
     });
 
     return registerSchema.validate(bodyRequest);
