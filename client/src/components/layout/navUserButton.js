@@ -10,7 +10,7 @@ const NavUserButton = (props) => {
     const history = useHistory();
 
     const handleClick = (event) => {
-        if (localStorage.getItem('cart')) {
+        if (localStorage.getItem('token')) {
             setAnchorEl(event.currentTarget);
         } else {
             history.push('/login');

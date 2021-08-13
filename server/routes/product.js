@@ -93,9 +93,16 @@ router.get('/', async (req, res) => {
 
 // Get ammount of all items => needed to pagination
 router.get('/ammount/get', async (req, res) => {
-    await Product.countDocuments({}, (err, count) => {
-        res.json(count);
-    });
+    // await Product.countDocuments({}, (err, count) => {
+    //     res.json(count);
+    // });
+    await Product.countDocuments()
+        .then((count) => {
+            res.json(count);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
 
 // router.get('/:category', async(req,res)=>{

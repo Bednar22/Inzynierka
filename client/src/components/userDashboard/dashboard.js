@@ -8,14 +8,14 @@ import UsersOrders from './usersOrders';
 const Dashboard = () => {
     const [choosenComp, setChoosenComp] = useState('UsersOrders');
 
+    const chooseComponentToShow = (component) => {
+        setChoosenComp(component);
+    };
+
     const componentsList = {
         EditUser: <EditUser />,
         UsersOrders: <UsersOrders />,
-        PasswordChange: <PasswordChange />,
-    };
-
-    const chooseComponentToShow = (component) => {
-        setChoosenComp(component);
+        PasswordChange: <PasswordChange chooseComponentToShow={chooseComponentToShow} />,
     };
 
     return (

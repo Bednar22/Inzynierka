@@ -28,7 +28,6 @@ const LoginForm = () => {
         axios
             .post('/users/login', user)
             .then((res) => {
-                //setCurrentUser(res.data)
                 localStorage.setItem('token', res.headers.authtoken);
                 history.push('/');
             })

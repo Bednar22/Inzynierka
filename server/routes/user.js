@@ -16,6 +16,33 @@ router.get('/logcheck', verifyToken, (req, res) => {
     res.send(true);
 });
 
+//Function that changes password for user
+router.put('/user/changePassword', verifyToken, async (req, res) => {
+    const salt = await bcrypt.genSalt(10); //higher value, more complex hash
+    const hashedPassword = await bcrypt.hash(req.body.newPassword, salt);
+    console.log('tutaj');
+    await User.findByIdAndUpdate(req.user._id, { password: hashedPassword })
+        .then(() => {
+            res.status(200).send('UDALO SIE');
+        })
+        .catch((err) => {
+            res.status(400).send(err);
+        });
+});
+
+//Checks password ==> to change password function
+
+router.post('/user/passCheck', verifyToken, async (req, res) => {
+    console.log(req.body);
+    let userPassword;
+    await User.findOne({ _id: req.user._id }).then((user) => {
+        userPassword = user.password;
+    });
+    const passCheck = await bcrypt.compare(req.body.passwordCheck, userPassword);
+    if (!passCheck) return res.status(400).send(false);
+    res.status(200).send(true);
+});
+
 //Gets user role by user id from token
 router.get('/user', userRoleAuth(process.env.ROLE_DEFAULT), async (req, res) => {
     await User.findOne({ _id: req.user._id })
