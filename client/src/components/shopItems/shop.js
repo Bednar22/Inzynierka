@@ -70,16 +70,20 @@ const Shop = () => {
                     <Filter></Filter>
                 </Grid>
 
-                <Grid container item xs={10} xl={8} justify='center'>
+                <Grid container item xs={10} sm={10} xl={8} justify='center'>
                     {' '}
                     {/* CONTEINER WITH ITEMS AND PAGINATION */}
-                    <Grid container spacing={3}>
+                    <Grid container xs={11} sm={11} spacing={5}>
                         {' '}
                         {/* ITEMS CONTAINER */}
                         {items.map((item) => {
                             return (
                                 <Grid item key={item._id} xs={4}>
-                                    <ShopItemCard _id={item._id} name={item.name}></ShopItemCard>
+                                    <ShopItemCard
+                                        _id={item._id}
+                                        name={item.name}
+                                        photo_id={item.photo_id}
+                                    ></ShopItemCard>
                                 </Grid>
                             );
                         })}
