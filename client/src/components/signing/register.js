@@ -72,16 +72,8 @@ const Register = () => {
     };
 
     return (
-        <Grid container direction='column' alignItems='center' style={{ border: '2px solid red' }}>
-            <Grid
-                container
-                direction='column'
-                alignItems='center'
-                sm={8}
-                xs={8}
-                spacing={4}
-                style={{ border: '2px solid green' }}
-            >
+        <Grid container direction='column' alignItems='center'>
+            <Grid container direction='column' alignItems='center' sm={8} xs={8} spacing={4}>
                 <Grid spacing={4} container item direction='row' justify='center' sm={8}>
                     {' '}
                     {/* IMIE I NAZWISKO */}

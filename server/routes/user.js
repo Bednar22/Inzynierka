@@ -20,7 +20,6 @@ router.get('/logcheck', verifyToken, (req, res) => {
 router.put('/user/changePassword', verifyToken, async (req, res) => {
     const salt = await bcrypt.genSalt(10); //higher value, more complex hash
     const hashedPassword = await bcrypt.hash(req.body.newPassword, salt);
-    console.log('tutaj');
     await User.findByIdAndUpdate(req.user._id, { password: hashedPassword })
         .then(() => {
             res.status(200).send('UDALO SIE');

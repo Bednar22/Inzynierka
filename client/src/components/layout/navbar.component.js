@@ -10,7 +10,7 @@ import { Link as MaterialLink } from '@material-ui/core';
 import '../../App.css';
 import NavUserButton from './navUserButton';
 import { useCart } from '../shoppingCart/cartContext';
-
+import Logo from '../../mtbbikelogo.png';
 export default function Navbar() {
     const { cartLen } = useCart(); // values from cartContext
 
@@ -18,49 +18,63 @@ export default function Navbar() {
         <>
             <AppBar position='static' color='secondary' className='navbar'>
                 <Toolbar>
-                    <Typography variant='h6'>
-                        <Link to='/'>
-                            <Button>LOGO</Button>
-                        </Link>
-                    </Typography>
+                    <Link to='/'>
+                        <img src={Logo} width='80' height='80'></img>
+                    </Link>
+                    {/* <img src={Logo} width='80' height='80'></img> */}
+                    <Link to='/'>
+                        <MaterialLink underline='none' color='secondary'>
+                            <Typography color='primary' variant='body2' style={{ fontSize: '25px' }}>
+                                MTBBike
+                            </Typography>
+                        </MaterialLink>
+                    </Link>
                     <Grid container direction='row' justify='center'>
                         <ButtonGroup color='primary' aria-label='text primary button group'>
                             {' '}
                             {/* className='navbar-link' */}
-                            <Link to='/shop'>
+                            <Link to='/shop/Części'>
                                 <MaterialLink underline='none' color='secondary'>
                                     {' '}
-                                    <Button color='primary'>Części</Button>
+                                    <Button size='large' color='primary'>
+                                        Części
+                                    </Button>
                                 </MaterialLink>
                             </Link>
-                            <Link to='/shop'>
+                            <Link to='/shop/Odzież'>
                                 <MaterialLink underline='none' color='secondary'>
                                     {' '}
-                                    <Button color='primary'>Odzież</Button>
+                                    <Button size='large' color='primary'>
+                                        Odzież
+                                    </Button>
                                 </MaterialLink>
                             </Link>
-                            <Link to='/shop'>
+                            <Link to={`/shop/Akcesoria`}>
                                 <MaterialLink underline='none' color='secondary'>
                                     {' '}
-                                    <Button color='primary'>Akcesoria</Button>
+                                    <Button size='large' color='primary'>
+                                        Akcesoria
+                                    </Button>
                                 </MaterialLink>
                             </Link>
-                            <Link to='/shop'>
+                            <Link to='/shop/'>
                                 <MaterialLink underline='none' color='secondary'>
                                     {' '}
-                                    <Button color='primary'>Promocje</Button>
+                                    <Button size='large' color='primary'>
+                                        Promocje
+                                    </Button>
                                 </MaterialLink>
                             </Link>
                         </ButtonGroup>
                     </Grid>
-                    <Button>
+                    <Button size='large'>
                         <Link to='/cart'>
                             <Badge badgeContent={cartLen} color='error'>
-                                <ShoppingBasketIcon color='primary' />{' '}
+                                <ShoppingBasketIcon fontSize='large' color='primary' />{' '}
                             </Badge>
                         </Link>
                     </Button>
-                    <NavUserButton></NavUserButton> {/* changes behovior, depends on loggin   */}
+                    <NavUserButton fontSize='large'></NavUserButton> {/* changes behovior, depends on loggin   */}
                 </Toolbar>
             </AppBar>
         </>

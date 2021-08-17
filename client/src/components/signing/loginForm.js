@@ -11,6 +11,7 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [email, setMail] = useState('');
     const history = useHistory();
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
     const restartStates = () => {
@@ -31,22 +32,22 @@ const LoginForm = () => {
                 localStorage.setItem('token', res.headers.authtoken);
                 history.push('/');
             })
-            .catch(setError(true));
+            .catch((err) => setError(true));
 
         e.preventDefault();
     };
 
-    const test = () => {
-        axios
-            .get('/users/userInfo', {
-                headers: {
-                    'auth-token': localStorage.getItem('token'),
-                },
-            })
-            .then((res) => {
-                console.log('UDALO SIE');
-            });
-    };
+    // const test = () => {
+    //     axios
+    //         .get('/users/userInfo', {
+    //             headers: {
+    //                 'auth-token': localStorage.getItem('token'),
+    //             },
+    //         })
+    //         .then((res) => {
+    //             console.log('UDALO SIE');
+    //         });
+    // };
 
     return (
         <Card style={{ padding: '20px 20px 20px 20px' }}>
@@ -84,7 +85,6 @@ const LoginForm = () => {
                     </Typography>
                 </Grid>
             </Grid>
-            <Button onClick={test}>TEST</Button>
         </Card>
     );
 };

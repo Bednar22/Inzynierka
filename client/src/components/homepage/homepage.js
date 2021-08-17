@@ -1,16 +1,12 @@
-import React, {useState} from 'react'
-import axios from 'axios'
-
+import React, { useState } from 'react';
+import axios from 'axios';
+import PopularItems from './popularItems';
 const Homepage = () => {
-
-
-    return(
-        <div style={{minHeight:'500px'}}>
-           HOMEPAGE
-           <button>ZMIEN</button>
-        </div>
-    )
-
-}
+    return (
+        <>
+            <PopularItems></PopularItems>
+        </>
+    );
+};
 
 export default Homepage;

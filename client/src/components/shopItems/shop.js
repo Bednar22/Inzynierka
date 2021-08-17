@@ -5,22 +5,25 @@ import './../../App.css';
 import ShopItemCard from './shopItemCard';
 import Pagination from './pagination';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-const Shop = () => {
+const Shop = (props) => {
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [items, setItems] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(10);
     const [itemsAmmount, setItemsAmmount] = useState(1);
+    const { category, subcategory } = useParams();
     const [cat, setCat] = useState('');
 
     const getProducts = async () => {
         setLoading(true);
         const res = await axios.get(`/product/`, {
             params: {
-                category: cat,
                 toLimit: itemsPerPage,
                 toSkip: (currentPage - 1) * itemsPerPage,
+                category: category,
+                subcategory: subcategory,
             },
         });
         console.log(res.data);
@@ -29,10 +32,27 @@ const Shop = () => {
         //setItemsAmmount(res.data.length)
     };
 
+    // const getProducts = async () => {
+    //     setLoading(true);
+    //     const res = await axios.get(`/product/`, {
+    //         params: {
+    //             category: category,
+    //             subcategory: subcategory,
+    //             toLimit: itemsPerPage,
+    //             toSkip: (currentPage - 1) * itemsPerPage,
+    //         },
+    //     });
+    //     console.log(res.data);
+    //     setItems(res.data);
+    //     setLoading(false);
+    //     //setItemsAmmount(res.data.length)
+    // };
+
     useEffect(() => {
         getProducts();
+        console.log({ category, subcategory });
         //setPagesNumber();
-    }, [currentPage, itemsPerPage]);
+    }, [currentPage, itemsPerPage, category, subcategory]);
 
     const getAmmount = async () => {
         try {
@@ -46,6 +66,7 @@ const Shop = () => {
     };
 
     useEffect(() => {
+        //getProducts();
         getAmmount();
     }, []);
 
@@ -83,6 +104,7 @@ const Shop = () => {
                                         _id={item._id}
                                         name={item.name}
                                         photo_id={item.photo_id}
+                                        price={item.price}
                                     ></ShopItemCard>
                                 </Grid>
                             );

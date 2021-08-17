@@ -8,6 +8,7 @@ const ProductSchema = mongoose.Schema({
     discount_price: Number,
     photo_id: String,
     description: String,
+    popularity: Number,
 });
 
 module.exports = mongoose.model('Product', ProductSchema);

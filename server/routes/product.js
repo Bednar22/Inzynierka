@@ -6,13 +6,19 @@ const { addProductValidation } = require('./productAdd.validation');
 
 /* PRODUCT ROUTE: /product/{} */
 
-//Gets product by id
-router.get('/:id', async (req, res) => {
-    await Product.findOne({ _id: req.params.id })
-        .then((product) => {
-            res.json(product);
+//Get few popular products
+router.get('/popular', async (req, res) => {
+    console.log('JESTEm');
+    Product.find()
+        .limit(5)
+        .sort({ popularity: -1 })
+        .exec()
+        .then((products) => {
+            res.json(products);
         })
-        .catch((err) => res.status(400).json('error. didnt find the product'));
+        .catch((err) => {
+            res.send(err);
+        });
 });
 
 router.get('/get/all', async (req, res) => {
@@ -60,6 +66,7 @@ router.post('/add', async (req, res) => {
         category: req.body.category,
         subCategory: req.body.subCategory,
         photo_id: req.body.photo_id,
+        popularity: 0,
     });
     try {
         const savedProduct = await product.save();
@@ -69,27 +76,91 @@ router.post('/add', async (req, res) => {
     }
 });
 
-// Get all products
+// // Get all products
+// router.get('/', async (req, res) => {
+//     const limit = parseInt(req.query.toLimit);
+//     const skip = parseInt(req.query.toSkip);
+//     const category = String(req.query.category);
+//     if (category === '' || category === 'undefined') {
+//         await Product.find()
+//             .limit(limit)
+//             .skip(skip)
+//             .then((products) => res.json(products))
+//             .catch((err) => res.status(400).json('Error: ' + err));
+//     } else {
+//         await Product.find({ category: category })
+//             .limit(limit)
+//             .skip(skip)
+//             .then((product) => {
+//                 res.json(product);
+//             })
+//             .catch((err) => res.status(400).json('error. no product match this category'));
+//     }
+// });
+
+// Get all products (IFS)
 router.get('/', async (req, res) => {
     const limit = parseInt(req.query.toLimit);
     const skip = parseInt(req.query.toSkip);
     const category = String(req.query.category);
-    if (category === '' || category === undefined) {
+    const subcategory = String(req.query.subcategory);
+    console.log(category);
+    if (category === '' || category === 'undefined') {
+        console.log('W PUSTYM');
         await Product.find()
             .limit(limit)
             .skip(skip)
-            .then((products) => res.json(products))
+            .then((products) => {
+                console.log(products);
+                res.json(products);
+            })
             .catch((err) => res.status(400).json('Error: ' + err));
-    } else {
+
+        return;
+    } else if (subcategory === '' || subcategory === 'undefined') {
+        console.log('W KATEGORII');
         await Product.find({ category: category })
             .limit(limit)
             .skip(skip)
-            .then((product) => {
-                res.json(product);
+            .then((products) => {
+                res.json(products);
             })
-            .catch((err) => res.status(400).json('error. no product match this category'));
+            .catch((err) => res.status(400).json('error. no products match this category'));
+        return;
+    } else {
+        console.log('W PSUBCAKREOGRYTYM');
+        await Product.find({ category: category, subCategory: subcategory })
+            .limit(limit)
+            .skip(skip)
+            .then((products) => {
+                res.json(products);
+            })
+            .catch((err) => res.status(400).json('error. no products match this category'));
     }
 });
+
+// // Get all products
+// router.get('/withCategory', async (req, res) => {
+//     const limit = parseInt(req.query.toLimit);
+//     const skip = parseInt(req.query.toSkip);
+//     const category = String(req.query.category);
+//     const subcategory = String(req.query.subcategory);
+//     if (subcategory === '' || subcategory === undefined) {
+//         await Product.find({ category: category })
+//             .limit(limit)
+//             .skip(skip)
+//             .then((products) => res.json(products))
+//             .catch((err) => res.status(400).json('Error: ' + err));
+//     } else {
+//         await Product.find({ category: category, subCategory: subcategory })
+//             .limit(limit)
+//             .skip(skip)
+//             .then((products) => {
+//                 res.json(products);
+//             })
+//             .catch((err) => res.status(400).json('error. no products match this category'));
+//     }
+// });
 
 // Get ammount of all items => needed to pagination
 router.get('/ammount/get', async (req, res) => {
@@ -100,6 +171,23 @@ router.get('/ammount/get', async (req, res) => {
         .then((count) => {
             res.json(count);
         })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+
+//Gets product by id ==> zmienic sciezke query zeby nie było bledow ObjectID
+router.get('/:id', async (req, res) => {
+    let popularity;
+    await Product.findOne({ _id: req.params.id })
+        .then((product) => {
+            res.json(product);
+            popularity = product.popularity;
+        })
+        .catch((err) => res.status(400).json('error. didnt find the product'));
+
+    await Product.findByIdAndUpdate(req.params.id, { popularity: popularity + 1 })
+        .then(() => {})
         .catch((err) => {
             console.log(err);
         });

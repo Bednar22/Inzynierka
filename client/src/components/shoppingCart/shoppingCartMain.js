@@ -36,7 +36,7 @@ const ShoppingCart = () => {
                             return (
                                 <Grid item xs={12} sm={12}>
                                     <SingleOrder
-                                        _id={item.id}
+                                        _id={item._id}
                                         name={item.name}
                                         removeFromCart={() => removeFromCart(item._id)}
                                     />

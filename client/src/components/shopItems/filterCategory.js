@@ -2,13 +2,20 @@ import React, { useState } from 'react';
 import { List, ListItem, ListItemText, Collapse, ListItemSecondaryAction } from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-
+import axios from 'axios';
+import { useHistory } from 'react-router';
 const FilterCategory = (props) => {
     const [collapse, setCollapse] = useState(false);
-
+    const history = useHistory();
+    const categoryClickHandler = (category) => {
+        history.push(`/shop/${category}`);
+    };
+    const subcategoryClickHandler = (category, subcategory) => {
+        history.push(`/shop/${category}/${subcategory}`);
+    };
     return (
         <>
-            <ListItem button>
+            <ListItem button onClick={() => categoryClickHandler(props.categoryName)}>
                 <ListItemText primary={props.categoryName} />
 
                 <ListItemSecondaryAction>
@@ -25,7 +32,11 @@ const FilterCategory = (props) => {
                     {/* ITEMY CO POZNIEJ MAJA BYC MAPOWANE */}
                     {props.subCategories.map((item, index) => {
                         return (
-                            <ListItem button key={index}>
+                            <ListItem
+                                onClick={() => subcategoryClickHandler(props.categoryName, item)}
+                                button
+                                key={index}
+                            >
                                 <ListItemText primary={item} />
                             </ListItem>
                         );

@@ -21,6 +21,7 @@ function registerValidation(bodyRequest) {
         nr_domu: Joi.number().required(),
         nr_mieszkania: Joi.number(),
         kod_pocztowy: Joi.number().required(),
+        role: Joi.string(),
     });
 
     return registerSchema.validate(bodyRequest);
