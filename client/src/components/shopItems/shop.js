@@ -52,22 +52,6 @@ const Shop = (props) => {
             });
     };
 
-    // const getProducts = async () => {
-    //     setLoading(true);
-    //     const res = await axios.get(`/product/`, {
-    //         params: {
-    //             category: category,
-    //             subcategory: subcategory,
-    //             toLimit: itemsPerPage,
-    //             toSkip: (currentPage - 1) * itemsPerPage,
-    //         },
-    //     });
-    //     console.log(res.data);
-    //     setItems(res.data);
-    //     setLoading(false);
-    //     //setItemsAmmount(res.data.length)
-    // };
-
     useEffect(() => {
         getProducts();
         console.log({ category, subcategory });
