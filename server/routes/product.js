@@ -5,6 +5,20 @@ const Product = require('../models/product_model');
 const { addProductValidation } = require('./productAdd.validation');
 
 /* PRODUCT ROUTE: /product/{} */
+router.get('/get/search/:searchQuery', (req, res) => {
+    let regexBase = req.params.searchQuery.replace(/\s/g, '|');
+    regexBase = new RegExp(regexBase, 'gi');
+    Product.find({
+        $or: [
+            { name: { $regex: regexBase } },
+            // { instructor: { $regex: regexBase } },
+            // { description: { $regex: regexBase } },
+        ],
+        // $and: [{ userName: req.headers.username }],
+    })
+        .then((products) => res.json(products))
+        .catch((err) => res.status(400).json('Error: ' + err));
+});
 
 //Get few popular products
 router.get('/popular', async (req, res) => {
