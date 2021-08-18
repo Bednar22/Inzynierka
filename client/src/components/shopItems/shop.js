@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Filter from './filter';
 import Grid from '@material-ui/core/Grid';
 import './../../App.css';
-import ShopItemCard from './shopItemCard';
-import Pagination from './pagination';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import SearchItems from '@material-ui/icons/Search';
+import { Button, TextField, Paper } from '@material-ui/core';
+//My comps
+import Pagination from './pagination';
+import ShopItemCard from './shopItemCard';
+import Filter from './filter';
+import SortComp from './sortComp';
+import SearchComp from './searchComp';
 
 const Shop = (props) => {
     const [loading, setLoading] = useState(false);
@@ -16,24 +19,28 @@ const Shop = (props) => {
     const [itemsAmmount, setItemsAmmount] = useState(1);
     const { category, subcategory } = useParams();
     const [query, setQuery] = useState('');
-
+    const [sortBy, setSortBy] = useState('Popularne');
+    const [sortType, setSortType] = useState({ popularity: -1 });
+    //
     const getProducts = async () => {
-        setLoading(true);
         const res = await axios.get(`/product/`, {
             params: {
                 toLimit: itemsPerPage,
                 toSkip: (currentPage - 1) * itemsPerPage,
                 category: category,
                 subcategory: subcategory,
+                sortType: sortType,
             },
         });
         console.log(res.data);
         setItems(res.data);
-        setLoading(false);
-        //setItemsAmmount(res.data.length)
     };
 
     const getSearched = () => {
+        if (!query) {
+            getProducts();
+            return;
+        }
         axios
             .get(`/product/get/search/${query}`)
             .then((res) => {
@@ -65,7 +72,7 @@ const Shop = (props) => {
         getProducts();
         console.log({ category, subcategory });
         //setPagesNumber();
-    }, [currentPage, itemsPerPage, category, subcategory]);
+    }, [currentPage, category, subcategory, sortType, sortBy]);
 
     const getAmmount = async () => {
         try {
@@ -98,19 +105,26 @@ const Shop = (props) => {
     return (
         <>
             <Grid container spacing={6}>
-                <Grid item xs={12} sm={12}></Grid>
+                <Grid item sm={2}></Grid>
+                <Grid container item xs={10} sm={10} justify='center'>
+                    <Grid container sm={11} xs={11} spacing={5} alignItems='center' justify='space-between'>
+                        <Grid item>
+                            <SortComp setSortType={setSortType} sortBy={sortBy} setSortBy={setSortBy}></SortComp>
+                        </Grid>
+                        <Grid item>
+                            <SearchComp setQuery={setQuery} getSearched={getSearched}></SearchComp>
+                        </Grid>
+                    </Grid>
+                    {/* <Grid item xs={1} sm={1}></Grid> */}
+                </Grid>
+                {/* FILTER CONTAINER */}
                 <Grid item xs={2}>
-                    {' '}
-                    {/* FILTER CONTAINER */}
                     <Filter></Filter>
                 </Grid>
-
-                <Grid container item xs={10} sm={10} xl={8} justify='center'>
-                    {' '}
-                    {/* CONTEINER WITH ITEMS AND PAGINATION */}
+                {/* CONTEINER WITH ITEMS AND PAGINATION */}
+                <Grid container item xs={10} sm={10} xl={10} justify='center'>
+                    {/* ITEMS CONTAINER */}
                     <Grid container xs={11} sm={11} spacing={5}>
-                        {' '}
-                        {/* ITEMS CONTAINER */}
                         {items.map((item) => {
                             return (
                                 <Grid item key={item._id} xs={4}>
@@ -125,11 +139,16 @@ const Shop = (props) => {
                         })}
                     </Grid>
                     <Grid item container justify='center'>
-                        <SearchItems searchData={setQuery} searchFunction={getSearched}></SearchItems>
-                        <Pagination changePage={changePage} itemsAmmount={itemsAmmount} itemsPerPage={10}></Pagination>
+                        <Pagination
+                            changePage={changePage}
+                            nextPage={nextPage}
+                            previousPage={previousPage}
+                            itemsAmmount={itemsAmmount}
+                            itemsPerPage={10}
+                        ></Pagination>
                     </Grid>
                 </Grid>
-            </Grid>{' '}
+            </Grid>
             {/* koniec grid conteinera */}
         </>
     );

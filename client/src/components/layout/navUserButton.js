@@ -36,8 +36,6 @@ const NavUserButton = (props) => {
                 </Button>
                 <Menu id='simple-menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
                     <MenuItem onClick={() => handleClose('/dashboard')}>Profil</MenuItem>
-                    {/* <MenuItem onClick={()=>handleClose('/orders')}>Zamówienia</MenuItem>
-          <MenuItem onClick={()=>handleClose('/settings')}>Ustawienia</MenuItem> */}
                     <MenuItem onClick={logout}>Wyloguj</MenuItem>
                 </Menu>
             </>

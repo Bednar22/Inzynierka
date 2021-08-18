@@ -114,38 +114,40 @@ router.post('/add', async (req, res) => {
 
 // Get all products (IFS)
 router.get('/', async (req, res) => {
+    console.log(req.query);
+    const sort = JSON.parse(req.query.sortType);
     const limit = parseInt(req.query.toLimit);
     const skip = parseInt(req.query.toSkip);
     const category = String(req.query.category);
     const subcategory = String(req.query.subcategory);
-    console.log(category);
+    console.log(sort);
     if (category === '' || category === 'undefined') {
-        console.log('W PUSTYM');
         await Product.find()
             .limit(limit)
             .skip(skip)
+            .sort(sort)
             .then((products) => {
-                console.log(products);
+                //console.log(products);
                 res.json(products);
             })
             .catch((err) => res.status(400).json('Error: ' + err));
 
         return;
     } else if (subcategory === '' || subcategory === 'undefined') {
-        console.log('W KATEGORII');
         await Product.find({ category: category })
             .limit(limit)
             .skip(skip)
+            .sort(sort)
             .then((products) => {
                 res.json(products);
             })
             .catch((err) => res.status(400).json('error. no products match this category'));
         return;
     } else {
-        console.log('W PSUBCAKREOGRYTYM');
         await Product.find({ category: category, subCategory: subcategory })
             .limit(limit)
             .skip(skip)
+            .sort(sort)
             .then((products) => {
                 res.json(products);
             })
