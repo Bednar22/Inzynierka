@@ -28,7 +28,7 @@ const SlidingCard = () => {
     };
     return (
         <>
-            <Grid container xs={12} sm={12} style={{ border: '2px solid green' }} alignItems='center' justify='center'>
+            <Grid container xs={12} sm={12}  alignItems='center' justify='center'>
                 <Grid item>
                     <Button onClick={() => prevImage()}>
                         <ArrowBackIosIcon></ArrowBackIosIcon>

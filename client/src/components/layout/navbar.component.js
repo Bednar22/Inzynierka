@@ -16,10 +16,10 @@ export default function Navbar() {
 
     return (
         <>
-            <AppBar position='static' color='secondary' className='navbar'>
+            <AppBar position='static' color='secondary' className='navbar'  >
                 <Toolbar>
                     <Link to='/'>
-                        <img src={Logo} width='80' height='80'></img>
+                        <img src={Logo} width='52' height='52'></img>
                     </Link>
                     {/* <img src={Logo} width='80' height='80'></img> */}
                     <Link to='/'>

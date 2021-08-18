@@ -46,12 +46,12 @@ function App() {
                         <Navbar></Navbar>
                         <Container maxWidth='lg' className={'main-container'}>
                             <Switch>
-                                <PrivateRoute path='panel' component={Panel}></PrivateRoute>
+                                <PrivateRoute exact path='/panel' component={Panel}></PrivateRoute>
                                 <Route path='/order' component={Order} />
                                 <Route path='/register' component={Register} />
                                 <Route path='/login' component={LoginForm} />
                                 <Route path='/cart' component={ShoppingCart} />
-                                <Route path='/productupload' component={AddProduct} /> 
+                                <Route path='/productupload' component={AddProduct} />
                                 <Route path='/category' component={AddCategory} />
                                 <Route path='/shop/item/:id' component={ShopItem} />
                                 <Route path='/shop/:category/:subcategory' component={Shop} />

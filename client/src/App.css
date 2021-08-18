@@ -16,6 +16,7 @@
 
 .navbar {
     margin-bottom: 50px;
+    max-height: 60px;
 }
 
 .but-page:active {

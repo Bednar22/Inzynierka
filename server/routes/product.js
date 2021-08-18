@@ -155,29 +155,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// // Get all products
-// router.get('/withCategory', async (req, res) => {
-//     const limit = parseInt(req.query.toLimit);
-//     const skip = parseInt(req.query.toSkip);
-//     const category = String(req.query.category);
-//     const subcategory = String(req.query.subcategory);
-//     if (subcategory === '' || subcategory === undefined) {
-//         await Product.find({ category: category })
-//             .limit(limit)
-//             .skip(skip)
-//             .then((products) => res.json(products))
-//             .catch((err) => res.status(400).json('Error: ' + err));
-//     } else {
-//         await Product.find({ category: category, subCategory: subcategory })
-//             .limit(limit)
-//             .skip(skip)
-//             .then((products) => {
-//                 res.json(products);
-//             })
-//             .catch((err) => res.status(400).json('error. no products match this category'));
-//     }
-// });
-
 // Get ammount of all items => needed to pagination
 router.get('/ammount/get', async (req, res) => {
     // await Product.countDocuments({}, (err, count) => {
