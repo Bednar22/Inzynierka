@@ -8,7 +8,7 @@ import { Button, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router';
 //my components
 import StatsPanel from './statsPanel';
-import OrdersPanel from './ordersPanel';
+import OrdersPanel from './ordersPanel/ordersPanel';
 import ShopPanel from './shopPanel';
 import StoragePanel from './storagePanel';
 

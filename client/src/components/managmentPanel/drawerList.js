@@ -1,7 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,8 +9,9 @@ import StorageIcon from '@material-ui/icons/Storage';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import StoreIcon from '@material-ui/icons/Store';
-
+import { useHistory } from 'react-router';
 const DrawerList = (props) => {
+    const history = useHistory();
     return (
         <div role='presentation' onClick={props.toggleDrawer(false)} onKeyDown={props.toggleDrawer(false)}>
             <List>
@@ -42,7 +40,7 @@ const DrawerList = (props) => {
                     <ListItemText primary='Statystyki' />
                 </ListItem>
                 <Divider />
-                <ListItem button>
+                <ListItem button onClick={() => history.push('/')}>
                     <ListItemIcon>
                         <ExitToAppIcon />
                     </ListItemIcon>

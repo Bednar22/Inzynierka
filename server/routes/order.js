@@ -19,12 +19,13 @@ router.get('/all', async (req, res) => {
 
 // Get all orders (limited number by params limit->set numbers limit and skip-> skips given ammount of orders)
 router.get('/all/status', async (req, res) => {
-    const limit = parseInt(req.query.toLimit);
-    const skip = parseInt(req.query.toSkip);
+    // const limit = parseInt(req.query.toLimit);
+    // const skip = parseInt(req.query.toSkip);
+
     const status = String(req.query.status);
     await Order.find({ status: status })
-        .limit(limit)
-        .skip(skip)
+        // .limit(limit)
+        // .skip(skip)
         .then((orders) => res.json(orders))
         .catch((err) => res.status(400).json('Error: ' + err));
 });

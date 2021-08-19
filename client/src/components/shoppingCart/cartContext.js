@@ -35,15 +35,18 @@ export function CartContextProvider({ children }) {
     const getInitialCart = () => {
         const local = JSON.parse(localStorage.getItem('cart'));
         setLocalCart(local);
-        axios
-            .get('/product/get/all', {
-                params: {
-                    productsIds: local,
-                },
-            })
-            .then((res) => {
-                setCart(res.data);
-            });
+
+        if (local.length > 0) {
+            axios
+                .get('/product/get/all', {
+                    params: {
+                        productsIds: local,
+                    },
+                })
+                .then((res) => {
+                    setCart(res.data);
+                });
+        }
     };
 
     const clearCart = () => {

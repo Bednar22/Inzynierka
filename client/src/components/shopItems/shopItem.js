@@ -57,7 +57,7 @@ const ShopItem = (props) => {
                     <Grid container direction='column' sm={12} xs={12} style={{ marginTop: '20px' }}>
                         <Paper>
                             <Typography variant='h4'> Opis:</Typography>
-                            <Typography> Piesek opis haha</Typography>
+                            <Typography>{productInfo.description}</Typography>
                         </Paper>
                     </Grid>
                 </Grid>

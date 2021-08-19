@@ -31,7 +31,7 @@ const ShopItemCard = (props) => {
                             style={{ textDecoration: 'none' }}
                             color='primary'
                         > */}
-                        <Typography gutterBottom variant='h5' component='h2'>
+                        <Typography noWrap gutterBottom component='h2'>
                             {props.name}
                         </Typography>
                         <Typography>Cena: {props.price} zł</Typography>

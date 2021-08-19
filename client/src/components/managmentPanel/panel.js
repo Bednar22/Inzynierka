@@ -4,7 +4,7 @@ import Drawer from '@material-ui/core/Drawer';
 import DrawerList from './drawerList';
 import PanelNavbar from './panelNavbar';
 import StatsPanel from './statsPanel';
-import OrdersPanel from './ordersPanel';
+import OrdersPanel from './ordersPanel/ordersPanel';
 import ShopPanel from './shopPanel';
 import StoragePanel from './storagePanel';
 

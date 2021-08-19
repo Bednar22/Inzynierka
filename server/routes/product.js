@@ -36,6 +36,7 @@ router.get('/popular', async (req, res) => {
 });
 
 router.get('/get/all', async (req, res) => {
+    console.log(req.query.productsIds);
     const productsIds = req.query.productsIds;
     const productsInfo = [];
     for (let i = 0; i < productsIds.length; i++) {
