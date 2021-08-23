@@ -4,12 +4,11 @@ const mongoose = require('mongoose');
 const OrderSchema = mongoose.Schema({
     products: Array,
     customer: Object,
-    user_id: String, //for logged in --> then the user object CAN be empty (cause data will come from User collection)
+    user_id: String,
     status: String,
     shipment: String,
     payment: String,
     date: Date,
     value: Object,
 });
-
 module.exports = mongoose.model('Order', OrderSchema);

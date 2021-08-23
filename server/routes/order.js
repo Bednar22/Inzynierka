@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Order = require('../models/order_model');
-const { verifyToken } = require('./verifyToken');
+const { verifyToken } = require('../middlewares/verifyToken');
 const nodemailer = require('nodemailer');
 
 // Manages orders route ==> /order/{...}
@@ -15,6 +15,17 @@ router.get('/all', async (req, res) => {
         .skip(skip)
         .then((orders) => res.json(orders))
         .catch((err) => res.status(400).json('Error: ' + err));
+});
+
+//Function that changes password for user
+router.put('/status/change/:id', verifyToken, async (req, res) => {
+    await Order.findByIdAndUpdate(req.params.id, { status: 'Wysłano' })
+        .then(() => {
+            res.status(200).send('UDALO SIE');
+        })
+        .catch((err) => {
+            res.status(400).send(err);
+        });
 });
 
 // Get all orders (limited number by params limit->set numbers limit and skip-> skips given ammount of orders)
@@ -60,7 +71,7 @@ router.post('/add', async (req, res) => {
     console.log(order);
     try {
         const savedOrder = await order.save();
-        console.log('DODANO ORDER');
+        //console.log('DODANO ORDER');
         await transporter.sendMail({
             from: '"MTBikes.pl" <foo@example.com>', // sender address
             to: /* req.body.user.email */ 'mbednar2020@gmail.com', // list of receivers
@@ -68,6 +79,7 @@ router.post('/add', async (req, res) => {
             text: 'Potwierdzenie', // plain text body
             html: '<b>Potwierdzenie</b>', // html body
         });
+        //console.log('DZIALA JAK AALA');
         res.json(savedOrder);
     } catch (error) {
         res.status(400).send(error);

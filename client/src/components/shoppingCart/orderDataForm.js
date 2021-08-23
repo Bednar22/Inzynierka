@@ -82,17 +82,8 @@ const OrderDataForm = () => {
                         spacing={4}
                         xs={6}
                         sm={6}
-                        style={{ border: '2px solid red' }}
                     >
-                        <Grid
-                            container
-                            direction='column'
-                            alignItems='center'
-                            sm={12}
-                            xs={12}
-                            spacing={4}
-                            style={{ border: '2px solid green' }}
-                        >
+                        <Grid container direction='column' alignItems='center' sm={12} xs={12} spacing={4}>
                             <Grid item>
                                 {' '}
                                 <Typography>DANE</Typography>
@@ -246,7 +237,7 @@ const OrderDataForm = () => {
                         <Grid item>
                             <Typography>WYSYŁKA</Typography>
                         </Grid>
-                        <Grid item container sm={11} xs={11} style={{ border: ' 2px solid blue ' }}>
+                        <Grid item container sm={11} xs={11}>
                             <FormControl component='fieldset'>
                                 <FormLabel required component='legend' color='secondary'>
                                     Sposób wysyłki:
@@ -272,7 +263,7 @@ const OrderDataForm = () => {
                         <Grid item>
                             <Typography>PŁATNOŚĆ</Typography>
                         </Grid>
-                        <Grid item container sm={11} xs={11} style={{ border: ' 2px solid blue ' }}>
+                        <Grid item container sm={11} xs={11}>
                             <FormControl component='fieldset'>
                                 <FormLabel required component='label' color='secondary'>
                                     Sposób płatności:

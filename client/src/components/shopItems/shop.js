@@ -15,7 +15,7 @@ const Shop = (props) => {
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [items, setItems] = useState([]);
-    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [itemsPerPage, setItemsPerPage] = useState(12);
     const [itemsAmmount, setItemsAmmount] = useState(1);
     const { category, subcategory } = useParams();
     const [query, setQuery] = useState('');
@@ -128,7 +128,7 @@ const Shop = (props) => {
                             nextPage={nextPage}
                             previousPage={previousPage}
                             itemsAmmount={itemsAmmount}
-                            itemsPerPage={10}
+                            itemsPerPage={12}
                         ></Pagination>
                     </Grid>
                 </Grid>

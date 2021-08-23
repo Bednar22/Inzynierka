@@ -7,10 +7,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Button, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router';
 //my components
-import StatsPanel from './statsPanel';
+
 import OrdersPanel from './ordersPanel/ordersPanel';
 import ShopPanel from './shopPanel';
-import StoragePanel from './storagePanel';
+import StoragePanel from './storagePanel/storagePanel';
 
 const PanelNavbar = (props) => {
     const history = useHistory();
@@ -20,7 +20,6 @@ const PanelNavbar = (props) => {
         OrdersPanel: <OrdersPanel />,
         StoragePanel: <StoragePanel />,
         ShopPanel: <ShopPanel />,
-        StatsPanel: <StatsPanel />,
     };
 
     return (

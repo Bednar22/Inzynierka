@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 require('dotenv/config');
 const Category = require('../models/categories_model');
-const { verifyToken } = require('./verifyToken');
+const { verifyToken } = require('../middlewares/verifyToken');
 
 //Add new category (POST)
 router.post('/add', async (req, res) => {

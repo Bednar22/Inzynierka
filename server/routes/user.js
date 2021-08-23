@@ -3,10 +3,10 @@ const User = require('../models/user_model');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { registerValidation, loginValidation } = require('./user.validation');
-const { verifyToken } = require('./verifyToken');
+const { registerValidation, loginValidation } = require('../validations/user.validation');
+const { verifyToken } = require('../middlewares/verifyToken');
 require('dotenv/config');
-const { userRoleAuth } = require('./userRoleAuth');
+const { userRoleAuth } = require('../middlewares/userRoleAuth');
 
 //ALL PATH START WITH: '/users/{...} ==> !!!
 

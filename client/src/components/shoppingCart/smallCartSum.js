@@ -18,17 +18,23 @@ const SummaryCart = (props) => {
     return (
         <>
             <Grid container>
-                <Typography variant='caption'>Zamówienie</Typography>
-                {props.items.map((item) => {
-                    return (
-                        <Grid container item>
-                            <h4>
-                                {item.name} {item.price}
-                            </h4>
-                        </Grid>
-                    );
-                })}
-                <Typography variant='overline'>Łącznie {priceSum}</Typography>
+                <Typography>
+                    <b>Zamówienie</b>
+                </Typography>
+                <Grid container direction='column'>
+                    {props.items.map((item) => {
+                        return (
+                            <Grid item>
+                                <Typography variant='caption'>
+                                    {item.name} Cena: {item.price} zł
+                                </Typography>
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+                <Typography /* variant='overline' */>
+                    <b>Łącznie {priceSum} zł</b>
+                </Typography>
             </Grid>
         </>
     );

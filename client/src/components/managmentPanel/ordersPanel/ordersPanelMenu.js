@@ -12,6 +12,22 @@ const StyledBadge = withStyles((theme) => ({
     },
 }))(Badge);
 
+const StyledBadge2 = withStyles((theme) => ({
+    badge: {
+        backgroundColor: 'orange',
+        right: -12,
+        top: 10,
+    },
+}))(Badge);
+
+const StyledBadge3 = withStyles((theme) => ({
+    badge: {
+        backgroundColor: 'blue',
+        right: -12,
+        top: 10,
+    },
+}))(Badge);
+
 const OrdersPanelMenu = () => {
     return (
         <>
@@ -26,7 +42,7 @@ const OrdersPanelMenu = () => {
                 <ListItem button>
                     <ListItemText
                         primary={
-                            <StyledBadge color='secondary' badgeContent={4}>
+                            <StyledBadge showZero color='secondary' badgeContent={4}>
                                 {' '}
                                 Nowe
                                 {/* <Typography>Nowe</Typography> */}
@@ -35,10 +51,46 @@ const OrdersPanelMenu = () => {
                     ></ListItemText>
                 </ListItem>
                 <ListItem button>
-                    <ListItemText primary='Chleb'></ListItemText>
+                    <ListItemText
+                        primary={
+                            <StyledBadge2 showZero color='secondary' badgeContent={0}>
+                                {' '}
+                                W przygotowaniu
+                                {/* <Typography>Nowe</Typography> */}
+                            </StyledBadge2>
+                        }
+                    ></ListItemText>
                 </ListItem>
                 <ListItem button>
-                    <ListItemText primary='Chleb'></ListItemText>
+                    <ListItemText
+                        primary={
+                            <StyledBadge2 showZero color='secondary' badgeContent={0}>
+                                {' '}
+                                Pracownik nr 1{/* <Typography>Nowe</Typography> */}
+                            </StyledBadge2>
+                        }
+                    ></ListItemText>
+                </ListItem>
+                <ListItem button>
+                    <ListItemText
+                        primary={
+                            <StyledBadge2 showZero color='secondary' badgeContent={0}>
+                                {' '}
+                                Pracownik nr 2{/* <Typography>Nowe</Typography> */}
+                            </StyledBadge2>
+                        }
+                    ></ListItemText>
+                </ListItem>
+                <ListItem button>
+                    <ListItemText
+                        primary={
+                            <StyledBadge3 showZero color='secondary' badgeContent={2}>
+                                {' '}
+                                Wysłano
+                                {/* <Typography>Nowe</Typography> */}
+                            </StyledBadge3>
+                        }
+                    ></ListItemText>
                 </ListItem>
             </List>
         </>

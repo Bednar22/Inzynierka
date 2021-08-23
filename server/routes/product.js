@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { cloudinary } = require('./cloudinary');
 const Product = require('../models/product_model');
-const { addProductValidation } = require('./productAdd.validation');
+const { addProductValidation } = require('../validations/productAdd.validation');
 
 /* PRODUCT ROUTE: /product/{} */
 router.get('/get/search/:searchQuery', (req, res) => {
@@ -24,7 +24,7 @@ router.get('/get/search/:searchQuery', (req, res) => {
 router.get('/popular', async (req, res) => {
     console.log('JESTEm');
     Product.find()
-        .limit(5)
+        .limit(4)
         .sort({ popularity: -1 })
         .exec()
         .then((products) => {

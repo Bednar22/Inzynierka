@@ -12,7 +12,7 @@ import Register from './components/signing/register';
 import Footer from './components/layout/footer';
 import ShoppingCart from './components/shoppingCart/shoppingCartMain';
 import Shop from './components/shopItems/shop';
-import AddProduct from './components/managmentPanel/addNewProduct';
+import AddProduct from './components/managmentPanel/storagePanel/addNewProduct';
 import AddCategory from './components/managmentPanel/addCategory';
 import Order from './components/order/order';
 import { CartContextProvider } from './components/shoppingCart/cartContext';
@@ -24,6 +24,7 @@ import PrivateRoute from './components/utils/privateRoute';
 import AdminRoute from './components/utils/adminRoute';
 import EditUser from './components/userDashboard/editUser';
 import Panel from './components/managmentPanel/panel';
+import SingleItemManage from './components/managmentPanel/storagePanel/singleItemManage';
 //Themes, used to set color of application
 const theme = createMuiTheme({
     palette: {
@@ -46,13 +47,16 @@ function App() {
                         <Navbar></Navbar>
                         <Container maxWidth='lg' className={'main-container'}>
                             <Switch>
-                                <PrivateRoute exact path='/panel' component={Panel}></PrivateRoute>
+                                {/* <Route path='panel/table/:id' component={SingleItemManage}></Route> */}
+                                {/* <Route path='/panel/:menuName'></Route> */}
                                 <Route path='/order' component={Order} />
+                                <PrivateRoute exact path='/panel' component={Panel}></PrivateRoute>
                                 <Route path='/register' component={Register} />
                                 <Route path='/login' component={LoginForm} />
                                 <Route path='/cart' component={ShoppingCart} />
                                 <Route path='/productupload' component={AddProduct} />
                                 <Route path='/category' component={AddCategory} />
+
                                 <Route path='/shop/item/:id' component={ShopItem} />
                                 <Route path='/shop/:category/:subcategory' component={Shop} />
                                 <Route path='/shop/:category' component={Shop} />

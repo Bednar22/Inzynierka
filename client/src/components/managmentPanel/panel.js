@@ -3,20 +3,20 @@ import Drawer from '@material-ui/core/Drawer';
 
 import DrawerList from './drawerList';
 import PanelNavbar from './panelNavbar';
-import StatsPanel from './statsPanel';
+
 import OrdersPanel from './ordersPanel/ordersPanel';
 import ShopPanel from './shopPanel';
-import StoragePanel from './storagePanel';
+import StoragePanel from './storagePanel/storagePanel';
 
-const Panel = () => {
+const Panel = (props) => {
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const [choosenComp, setChoosenComp] = useState('OrdersPanel');
+    const [choosenComp, setChoosenComp] = useState(props.match.params.menuName);
 
+    //props.match.params.menuName
     const componentsList = {
-        OrdersPanel: <OrdersPanel />,
-        StoragePanel: <StoragePanel />,
-        ShopPanel: <ShopPanel />,
-        StatsPanel: <StatsPanel />,
+        orders: <OrdersPanel />,
+        storage: <StoragePanel />,
+        shop: <ShopPanel />,
     };
 
     const toggleDrawer = (open) => (event) => {

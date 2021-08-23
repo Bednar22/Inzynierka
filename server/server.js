@@ -6,8 +6,6 @@ const mongoose = require('mongoose');
 require('dotenv/config');
 const app = express();
 
-//app.use(express.static('public')); //--> moze tak lepiej zamiast koncowej linijki
-
 // LIMITS FOR BIGGER FILES (IMAGES)
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));

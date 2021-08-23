@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
+
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
@@ -18,26 +19,6 @@ const useStyles = makeStyles({
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-    createData('Gingerbread2', 356, 16.0, 49, 3.9),
-    createData('Gingerbread3', 356, 16.0, 49, 3.9),
-    createData('Gingerbread4', 356, 16.0, 49, 3.9),
-    createData('Gingerbread5', 356, 16.0, 49, 3.9),
-    createData('Gingerbread6', 356, 16.0, 49, 3.9),
-    createData('Gingerbread7', 356, 16.0, 49, 3.9),
-    createData('Gingerbread8', 356, 16.0, 49, 3.9),
-    createData('Gingerbread9', 356, 16.0, 49, 3.9),
-    createData('Gingerbread10', 356, 16.0, 49, 3.9),
-    createData('Gingerbread11', 356, 16.0, 49, 3.9),
-    createData('Gingerbread12', 356, 16.0, 49, 3.9),
-    createData('Gingerbread13', 356, 16.0, 49, 3.9),
-];
 
 const OrdersTable = () => {
     const classes = useStyles();
@@ -81,6 +62,13 @@ const OrdersTable = () => {
             <Table className={classes.table} aria-label='simple table'>
                 <TableHead>
                     <TableRow>
+                        {/* <TableCell padding="checkbox">
+          <Checkbox
+            indeterminate={numSelected > 0 && numSelected < rowCount}
+            checked={rowCount > 0 && numSelected === rowCount}
+            onChange={onSelectAllClick}
+            inputProps={{ 'aria-label': 'select all desserts' }}
+          /> */}
                         <TableCell>Klient</TableCell>
                         <TableCell align='right'>Kwota</TableCell>
                         <TableCell align='right'>Data</TableCell>

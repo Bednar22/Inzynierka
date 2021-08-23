@@ -12,7 +12,20 @@ export function CartContextProvider({ children }) {
     const [cartLen, setCartLen] = useState(0);
     const [localCart, setLocalCart] = useState([]); //cart with only IDs
 
+    // checkIfContains = (id) => {
+    //     let found = false;
+    //     for (let i = 0; i < vendors.length; i++) {
+    //         if (vendors[i]._id == id) {
+    //             found = true;
+    //             break;
+    //         }
+    //     }
+    // };
+
     const addToCart = (id) => {
+        if (cart.some((item) => item._id == id)) {
+            return 'Ten przedmiot już jest w koszyku';
+        }
         console.log(`ID KTORE PRZYSZŁO TO LOCAL ${id}`);
         setLocalCart((prevLocalCart) => [...prevLocalCart, id]);
 
@@ -25,6 +38,7 @@ export function CartContextProvider({ children }) {
                 console.log(err);
             });
         console.log(localCart);
+        return 'Dodano pomyślnie do koszyka';
     };
 
     const addToLocalCart = (id) => {

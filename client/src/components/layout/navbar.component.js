@@ -10,13 +10,13 @@ import { Link as MaterialLink } from '@material-ui/core';
 import '../../App.css';
 import NavUserButton from './navUserButton';
 import { useCart } from '../shoppingCart/cartContext';
-import Logo from '../../mtbbikelogo.png';
+import Logo from '../../logo/mtbbikelogo.png';
 export default function Navbar() {
     const { cartLen } = useCart(); // values from cartContext
 
     return (
         <>
-            <AppBar position='static' color='secondary' className='navbar'  >
+            <AppBar position='static' color='secondary' className='navbar'>
                 <Toolbar>
                     <Link to='/'>
                         <img src={Logo} width='52' height='52'></img>
@@ -33,7 +33,7 @@ export default function Navbar() {
                         <ButtonGroup color='primary' aria-label='text primary button group'>
                             {' '}
                             {/* className='navbar-link' */}
-                            <Link to='/shop/Części'>
+                            <Link to='/shop/Części rowerowe'>
                                 <MaterialLink underline='none' color='secondary'>
                                     {' '}
                                     <Button size='large' color='primary'>

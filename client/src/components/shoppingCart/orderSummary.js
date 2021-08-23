@@ -61,15 +61,8 @@ const OrderSummary = (props) => {
 
     return (
         <>
-            <Grid container direction='column' alignItems='center' style={{ border: '2px green' }}>
-                <Grid
-                    container
-                    direction='column' /* alignItems='center' */
-                    spacing={4}
-                    xs={8}
-                    sm={8}
-                    style={{ border: '2px solid red' }}
-                >
+            <Grid container direction='column' alignItems='center'>
+                <Grid container direction='column' /* alignItems='center' */ spacing={4} xs={8} sm={8}>
                     <Grid item>
                         <List>
                             {cart.map((item) => {
