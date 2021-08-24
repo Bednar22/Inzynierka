@@ -4,6 +4,12 @@ const { cloudinary } = require('./cloudinary');
 const Product = require('../models/product_model');
 const { addProductValidation } = require('../validations/productAdd.validation');
 
+// router.get('/wez/wszystkie', (req, res) => {
+//     Product.find().then((products) => {
+//         res.json(products);
+//     });
+// });
+
 /* PRODUCT ROUTE: /product/{} */
 router.get('/get/search/:searchQuery', (req, res) => {
     let regexBase = req.params.searchQuery.replace(/\s/g, '|');
@@ -91,28 +97,6 @@ router.post('/add', async (req, res) => {
     }
 });
 
-// // Get all products
-// router.get('/', async (req, res) => {
-//     const limit = parseInt(req.query.toLimit);
-//     const skip = parseInt(req.query.toSkip);
-//     const category = String(req.query.category);
-//     if (category === '' || category === 'undefined') {
-//         await Product.find()
-//             .limit(limit)
-//             .skip(skip)
-//             .then((products) => res.json(products))
-//             .catch((err) => res.status(400).json('Error: ' + err));
-//     } else {
-//         await Product.find({ category: category })
-//             .limit(limit)
-//             .skip(skip)
-//             .then((product) => {
-//                 res.json(product);
-//             })
-//             .catch((err) => res.status(400).json('error. no product match this category'));
-//     }
-// });
-
 // Get all products (IFS)
 router.get('/', async (req, res) => {
     console.log(req.query);
@@ -186,11 +170,5 @@ router.get('/:id', async (req, res) => {
             console.log(err);
         });
 });
-
-// router.get('/:category', async(req,res)=>{
-//     await Product.find({category: req.params.category})
-//     .then(product=>{res.json(product)})
-//     .catch(err=>res.status(400).json("error. no product match this category"))
-// })
 
 module.exports = router;

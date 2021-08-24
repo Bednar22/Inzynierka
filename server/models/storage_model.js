@@ -5,7 +5,8 @@ const StorageSchema = mongoose.Schema({
     quantity: Number,
     product_id: String,
     storage_location: String,
-    inGraph: Number,
+    graphNode: Number,
+    packingTime: Number,
 });
 
-module.exports = mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model('Storage', StorageSchema);

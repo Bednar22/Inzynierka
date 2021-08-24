@@ -71,6 +71,13 @@ const graph = [
 const graphTest = [['A', 'B', 2], ['A', 'C', 4], ['B', 'D', 7][('D', 'A', 4)], ['D', 'C', 3]];
 //const [wszystkieWyniki, setWszystkieWyniki] = useState([]);
 
+const showPath = (path) => {
+    let paths = [];
+    for (let i = 0; i < path.length; i++) {
+        paths[i] = path[i];
+    }
+};
+
 export const bellman = (src) => {
     const V = 31;
     const E = graph.length;
@@ -85,15 +92,16 @@ export const bellman = (src) => {
     // vertex can have at-most |V| - 1 edges
     for (let i = 0; i < V - 1; i++) {
         for (let j = 0; j < E; j++) {
-            if (dis[graph[j][0]] + graph[j][2] < dis[graph[j][1]]) dis[graph[j][1]] = dis[graph[j][0]] + graph[j][2];
-            sciezka[graph[j][1]] = String(graph[j][0]) + '->';
-            //console.log(`aktualnie ${sciezka}`);
+            if (dis[graph[j][0]] + graph[j][2] < dis[graph[j][1]]) {
+                dis[graph[j][1]] = dis[graph[j][0]] + graph[j][2];
+                sciezka[graph[j][1]] = graph[j][0];
+            }
         }
     }
-    for (var i = 0; i < E; i++) {
-        var x = graph[i][0];
-        var y = graph[i][1];
-        var weight = graph[i][2];
+    for (let i = 0; i < E; i++) {
+        let x = graph[i][0];
+        let y = graph[i][1];
+        let weight = graph[i][2];
         if (dis[x] != 1000000000 && dis[x] + weight < dis[y])
             console.log('Graph contains negative' + ' weight cycle<br>');
     }
@@ -102,19 +110,18 @@ export const bellman = (src) => {
     console.log(sciezka);
     for (var i = 0; i < V; i++) wyniki.push(dis[i]);
 
-    for (let i = 0; i < sciezka.length; i++) {}
-
+    console.log(wyniki);
     return wyniki;
 };
 
 export const petlaBellmana = () => {
-    let V = 31;
+    let V = 1;
     let nowy = [];
     for (let i = 0; i < V; i++) {
         nowy.push(bellman(i));
         // setWszystkieWyniki((prevWyniki) => [...prevWyniki, nowy]);
     }
-    //console.log(nowy);
+    console.log(nowy);
     return nowy;
 };
 

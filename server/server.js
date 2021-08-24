@@ -34,7 +34,8 @@ app.use('/categories', categoriesRoute);
 const ordersRoute = require('./routes/order');
 app.use('/order', ordersRoute);
 //storage
-/* HERE STORAGE API --> MAGAZYNOWE SPRAWY */
+const storageRoute = require('./routes/storage');
+app.use('/storage', storageRoute);
 
 app.listen(3001, () => {
     console.log(`Server is running on port: 3001`);

@@ -127,10 +127,10 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.put('/', async (req, res) => {
-    await User.find()
-        .then((users) => res.json(users))
-        .catch((err) => res.status(400).json('Error: ' + err));
-});
+// router.put('/', async (req, res) => {
+//     await User.find()
+//         .then((users) => res.json(users))
+//         .catch((err) => res.status(400).json('Error: ' + err));
+// });
 
 module.exports = router;

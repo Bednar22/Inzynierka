@@ -6,74 +6,89 @@ import { useHistory } from 'react-router';
 import { Dialog, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import SingleItemManage from './singleItemManage';
 const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'id', headerName: 'ID', width: 160 },
     {
         field: 'name',
-        headerName: 'Klient',
-        width: 150,
+        headerName: 'Nazwa',
+        width: 200,
         editable: false,
     },
-    {
-        field: 'value',
-        headerName: 'Kwota',
-        width: 150,
-        editable: true,
-    },
+
     {
         field: 'quantity',
         headerName: 'Ilość',
         type: 'number',
         width: 110,
-        editable: true,
+        editable: false,
     },
     {
-        field: 'products',
-        headerName: 'Przedmioty',
-        description: 'This column has a value getter and is not sortable.',
+        field: 'storage_location',
+        headerName: 'Lokacja',
+        type: 'string',
         sortable: false,
+        editable: true,
         width: 160,
-        // valueGetter: (params) =>
-        //     `${params.getValue(params.id, 'firstName') || ''} ${params.getValue(params.id, 'lastName') || ''}`,
     },
 ];
 
 const ItemsTable = () => {
     const [ordersAmmount, setOrdersAmmount] = useState(0);
-    const [orders, setOrders] = useState([]);
-    const history = useHistory();
+    const [tableOrders, setTableOrders] = useState([]);
+    const [singleOrderInfo, setSingleOrderInfo] = useState({});
     const [open, setOpen] = useState(false);
-    const changeOrders = (order) => {
-        let ord = {
-            id: order._id,
-            name: order.customer.surname + ' ' + order.customer.name,
-            value: order.value.productsValue,
-            date: order.date,
-            products: order.products[0].name,
+    const [orders, setOrders] = useState([]);
+
+    const changeOrders = (storage) => {
+        let newStorage = {
+            id: storage.product_id,
+            name: storage.name,
+            quantity: storage.quantity,
+            storage_location: storage.storage_location,
         };
-        return ord;
+        return newStorage;
     };
+
+    const handleAddCategory = async () => {
+        // e.preventDefault();
+
+        const storage = {
+            name: 'Piesek',
+            quantity: 20,
+            product_id: '13131',
+            storage_location: 'W dupie',
+            graphNode: 1,
+        };
+
+        try {
+            await axios.post('/storage/add', storage);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const getOrders = async () => {
         await axios
-            .get(`/order/all/status`, {
-                params: {
-                    status: 'new',
-                },
-            })
+            .get(`/storage/getAll`)
             .then((res) => {
                 console.log(res.data);
-                let orderss = res.data.map(changeOrders);
-                console.log(orderss);
-                setOrders(orderss);
+                setTableOrders(res.data.map(changeOrders)); //to DataGrid format
+                setOrders(res.data); //normal info about orders from Storage Schema
                 setOrdersAmmount(res.data.length);
             })
             .catch((err) => console.log(err));
     };
 
     useEffect(() => {
+        //handleAddCategory();
         getOrders();
     }, []);
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (id) => {
+        console.log(id);
+        const singleOrder = orders.find((item) => item.product_id == id);
+        setSingleOrderInfo(singleOrder);
+        console.log(' to jest singleOrder');
+        console.log(singleOrder);
         setOpen(true);
     };
 
@@ -82,25 +97,17 @@ const ItemsTable = () => {
     };
     const fullWidth = true;
     const maxWidth = 'md';
-    const onItemInTableClick = () => {
-        console.log('KLIKNIETE');
-
-        return <></>;
-    };
 
     return (
         <>
-            <div style={{ height: 600, width: '100%' }}>
+            <div style={{ height: 600, width: '80%' }}>
                 <DataGrid
-                    rows={orders}
+                    rows={tableOrders}
                     columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[10]}
                     //checkboxSelection
-                    onCellClick={() =>
-                        //alert('pies');
-                        handleClickOpen()
-                    }
+                    onCellClick={(e) => handleClickOpen(e.id)}
                     disableSelectionOnClick
                 />
             </div>
@@ -111,7 +118,7 @@ const ItemsTable = () => {
                 onClose={handleClose}
                 aria-labelledby='max-width-dialog-title'
             >
-                <SingleItemManage></SingleItemManage>
+                <SingleItemManage productInfo={singleOrderInfo}></SingleItemManage>
             </Dialog>
         </>
     );

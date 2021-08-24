@@ -18,9 +18,9 @@ const StorageMenu = () => {
                     <ListItemText primary='Dodaj przedmiot' />
                 </ListItem>
                 <Divider />
-                <ListItem button>
+                {/* <ListItem button>
                     <ListItemText primary='Zmień ilość predmiotu' />
-                </ListItem>
+                </ListItem> */}
             </List>
             <Divider />
         </Paper>

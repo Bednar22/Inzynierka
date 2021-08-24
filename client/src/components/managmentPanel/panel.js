@@ -10,7 +10,7 @@ import StoragePanel from './storagePanel/storagePanel';
 
 const Panel = (props) => {
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const [choosenComp, setChoosenComp] = useState(props.match.params.menuName);
+    const [choosenComp, setChoosenComp] = useState('orders');
 
     //props.match.params.menuName
     const componentsList = {
