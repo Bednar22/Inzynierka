@@ -55,7 +55,7 @@ router.get('/user', userRoleAuth(process.env.ROLE_DEFAULT), async (req, res) => 
 router.get('/userInfo', verifyToken, async (req, res) => {
     await User.findOne({ _id: req.user._id })
         .then((user) => {
-            res.json(user);
+            res.json(user); 
         })
         .catch((err) => res.status(400).json('error. didnt find the user'));
 });
